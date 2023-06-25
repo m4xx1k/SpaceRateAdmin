@@ -1,0 +1,139 @@
+.container{
+    background: #fff;
+    padding: 1em;
+    border-radius: 16px;
+}
+.imagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.imageWrapper img {
+    width: 64px;
+    height: auto;
+    max-height: 128px;
+    object-fit: cover;
+}
+
+
+/* Previous CSS... */
+
+.fileInput {
+    display: none;
+}
+
+.form {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 0;
+}
+
+.input, .fileInput {
+    padding: 4px 10px;
+    border: none;
+    border-bottom: 1px solid #000; /* Material Design primary color */
+    background: none;
+    font-size: 16px;
+    outline: none;
+    border-radius: 0px;
+}
+.uploadButton{
+    width: 32px;
+    height: 32px;
+    background: transparent;
+}
+.submitButton{
+    width: 200px;
+}
+.submitButton, .removeButton {
+    padding: 10px;
+    background: #3f51b5; /* Material Design primary color */
+    color: #ffffff; /* white color */
+    border-radius: 4px; /* Material Design border radius */
+}
+
+
+
+.imagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.imageWrapper {
+    position: relative;
+    margin: 5px;
+}
+.imageWrapper:hover .removeButton{
+    display: flex;
+}
+.removeButton {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #f44336;
+    width: 16px;
+    height: 16px;/* Material Design error color */
+}
+
+.removeButton:hover {
+    background: #d32f2f; /* Material Design error dark color */
+}
+.photos{
+    width: 40%;
+    padding: 4px;
+    border:1px solid #ddd;
+
+}
+.text_info{
+    width: 50%;
+
+}
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.input{
+    max-width: 150px;
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+}
+.form_group{
+    display: flex;
+    flex-direction: column;
+}
+.form_group-desc{
+    align-self: stretch;
+    width: 100%;
+}
+.textarea{
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.additional{
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    gap: 8px;
+}

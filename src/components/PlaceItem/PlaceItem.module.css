@@ -1,0 +1,117 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 8px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    margin: 8px;
+}
+.photo{
+    width: 100%;
+    max-width: 128px;
+    height: auto;
+    object-fit: contain;
+}
+.photo_container{
+    position: relative;
+
+}
+.photoI{
+    display: none;
+}
+.photo_container{
+    padding: 2px;
+    background: #f5f5f5;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    border-radius: 4px;
+}
+.photo_container:hover .photoI{
+    display: flex;
+    content: attr(data-index);
+    position: absolute;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background: white;
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+    border-radius: 2px;
+    border:1px solid black;
+}
+.photos{
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2px;
+
+}
+.fileInput {
+    display: none;
+}
+
+.info, .additional{
+    width: calc(50% - 80px);
+}
+.name{
+    font-size: 18px;
+    font-weight: 700;
+}
+.desc{
+    font-size: 14px;
+    max-width: 400px;
+    border:1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0 4px;
+}
+.additional{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.expand{
+    width: 16px;
+    height: 16px;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(45deg);
+    background: transparent;
+}
+.add_item{
+    display: flex;
+    flex-direction: column;
+}
+.add_name{
+    font-weight: 700;
+}
+.add_value{
+    font-size: 14px;
+    font-weight: 300;
+}
+.save, .delete{
+    padding: 8px 16px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    border-radius: 8px;
+    transition: all ease-in-out 400ms;
+}
+.save:hover, .delete:hover{
+    transform: scale(1.02);
+}
+.save{
+    background: green;
+    color: #eee;
+}
+.delete{
+    background: red;
+}
