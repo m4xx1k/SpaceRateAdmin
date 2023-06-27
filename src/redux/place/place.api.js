@@ -30,11 +30,25 @@ export const placeApi = api.injectEndpoints({
             })
 
         }),
+        createPlacePhoto:builder.mutation({
+            query:({id,body})=>({
+                url:`place/addphoto/${id}`,
+                method:'POST',
+                body
+            })
+        }),
         updatePlaceInfo:builder.mutation({
             query:({id,body})=>({
                 url:`place/${id}/info`,
                 method:'PUT',
                 body
+            })
+
+        }),
+        deletePhoto:builder.mutation({
+            query:id=>({
+                url:`place/deletephoto/${id}`,
+                method:'DELETE',
             })
 
         }),
@@ -48,4 +62,4 @@ export const placeApi = api.injectEndpoints({
     })
 })
 
-export const { useCreatePlaceMutation, useFetchAllPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi
+export const {useDeletePhotoMutation,useCreatePlacePhotoMutation, useCreatePlaceMutation, useFetchAllPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi

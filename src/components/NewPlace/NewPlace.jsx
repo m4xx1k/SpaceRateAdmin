@@ -23,20 +23,21 @@ const NewPlace = () => {
             formData.append('categoryId', categoryId);
             formData.append('description', description);
             console.log(additionalData)
-            Object.keys(additionalData).forEach(elem=>{
+            Object.keys(additionalData).forEach(elem => {
                 console.log(elem, additionalData.elem)
-                formData.append(elem,additionalData[elem])
+                formData.append(elem, additionalData[elem])
             })
             images.forEach((image) => {
                 formData.append(`photos`, image);
             });
 
             // send request
-            const res = await create(formData);
+            await create(formData);
             resetName()
             resetCategoryId()
             resetDescription()
             setAdditionalData({})
+            window.location.reload()
         } catch (e) {
             console.error(e)
         }
@@ -109,7 +110,7 @@ const NewPlace = () => {
             <div className={s.additional}>
                 <div className={'row-wrap'}>
                     {
-                        ['price', 'changeDate','time', 'location', 'telephone', 'type'].map(elem => <AdditionalItem
+                        ['price', 'time', 'location', 'telephone', 'type', 'site'].map(elem => <AdditionalItem
                             name={elem} handleChange={setAdditionalData} key={elem}/>)
                     }
                     {/* '   <div className={s["form_group"]}>*/}
@@ -137,7 +138,7 @@ const NewPlace = () => {
                 </div>
                 <div className="row-wrap">
                     {
-                        ['site', 'tg','email', 'inst'].map(elem => <AdditionalItem
+                        ['fb', 'tg', 'email', 'inst'].map(elem => <AdditionalItem
                             name={elem} key={elem} handleChange={setAdditionalData}/>)
                     }
                     {/*<div className={s["form_group"]}>*/}

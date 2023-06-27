@@ -7,6 +7,33 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     margin: 8px;
 }
+
+.fileInput {
+    display: none;
+}
+.deletePhoto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: red;
+    color: black;
+    font-weight: 700;
+    transform: rotate(45deg);
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+}
+.uploadButton{
+    width: 32px;
+    height: 32px;
+    background: transparent;
+}
 .photo{
     width: 100%;
     max-width: 128px;
