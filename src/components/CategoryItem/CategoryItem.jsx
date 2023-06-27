@@ -6,7 +6,7 @@ import {useRemoveMutation, useUpdateMutation} from "../../redux/category/categor
 import {useInput} from "../../utils.js";
 
 const CategoryItem = ({data}) => {
-    const [imageUrl, setImageUrl] = useState(`http://localhost:5001/categories/${data.photo}`)
+    const [imageUrl, setImageUrl] = useState(`${import.meta.env.VITE__API}/categories/${data.photo}`)
     const [isNewData, setIsNewData] = useState(false)
     const [image, setImage] = useState(null)
     const [name, changeName] = useInput(data.name)

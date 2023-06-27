@@ -31,8 +31,8 @@ const PlaceItem = ({data}) => {
         const initialPhotos = {}
         data.photos.forEach(e => {
             initialPhotos[e._id] = {
-                src: `http://localhost:5001/places/${e.photo}`,
-                photo: `http://localhost:5001/places/${e.photo}`,
+                src: `${import.meta.env.VITE__API}/places/${e.photo}`,
+                photo: `${import.meta.env.VITE__API}/places/${e.photo}`,
                 isNew: false
             }
         })
