@@ -12,6 +12,10 @@ const routes = [
         path: '/places',
         name: 'places'
     },
+    {
+        path: '/users',
+        name: 'users'
+    },
 ]
 const Sidebar = () => {
     const {pathname} = useLocation()
