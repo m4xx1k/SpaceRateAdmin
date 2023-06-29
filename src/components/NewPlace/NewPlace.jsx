@@ -37,7 +37,7 @@ const NewPlace = () => {
             resetCategoryId()
             resetDescription()
             setAdditionalData({})
-            window.location.reload()
+            // window.location.reload()
         } catch (e) {
             console.error(e)
         }
