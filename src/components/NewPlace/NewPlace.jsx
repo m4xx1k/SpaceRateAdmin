@@ -24,7 +24,7 @@ const NewPlace = () => {
             formData.append('description', description);
             console.log(additionalData)
             Object.keys(additionalData).forEach(elem => {
-                console.log(elem, additionalData.elem)
+                console.log(elem, additionalData[elem])
                 formData.append(elem, additionalData[elem])
             })
             images.forEach((image) => {
