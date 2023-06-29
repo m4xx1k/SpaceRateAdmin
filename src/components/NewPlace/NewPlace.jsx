@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import s from './NewPlace.module.css';
 import {useInput} from '../../utils.js';
 import {useCreatePlaceMutation} from "../../redux/place/place.api.js";
@@ -9,8 +9,8 @@ import AdditionalItem from "./AdditionalItem.jsx";
 const NewPlace = () => {
     const [name, handleNameChange, resetName] = useInput('');
     const [description, handleDescriptionChange, resetDescription] = useInput('');
-    const {data: categories} = useFetchAllQuery()
-    const [categoryId, changeCategoryId, resetCategoryId] = useInput('')
+    const {data: categories, isSuccess} = useFetchAllQuery()
+    const [categoryId, changeCategoryId, resetCategoryId, setCategoryId] = useInput('')
 
     const [images, setImages] = useState([]);
     const fileInput = useRef(null);
@@ -57,6 +57,11 @@ const NewPlace = () => {
     const handleImageRemove = index => {
         setImages(images.filter((image, i) => i !== index));
     };
+    useEffect(() => {
+        if (isSuccess && categories?.length) {
+            setCategoryId(categories[0]._id)
+        }
+    }, [categories, isSuccess])
 
 
     return (
