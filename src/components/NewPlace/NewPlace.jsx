@@ -25,10 +25,9 @@ const NewPlace = () => {
             console.log({name, description, categoryId, img: images.length, additionalData})
             Object.keys(additionalData).forEach(elem => {
                 if (additionalData[elem]?.value !== '') {
-                    console.log(!!elem, elem, additionalData[elem])
                     formData.append(elem, additionalData[elem])
-
-                }
+                }else
+                    formData.append(elem, '')
             })
             images.forEach((image) => {
                 formData.append(`photos`, image);
