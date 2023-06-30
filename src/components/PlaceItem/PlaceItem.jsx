@@ -183,7 +183,7 @@ const PlaceItem = ({data}) => {
                 {
                     Object.keys(data.info).slice(isOpen ? 0 : 4).map(name => {
                         const value = data.info[name].value
-                        console.log(name, data.info[name])
+                        // console.log(name, data.info[name])
                         return <AdditionalItem value={value} name={name} key={name}
                                                handleChange={setAdditionalData}/>
 
