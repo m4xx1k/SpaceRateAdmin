@@ -6,6 +6,6 @@ import {categoryApi} from "./category/category.api";
 
 export const store = configureStore({
     reducer: {
-        [api.reducerPath]: api.reducer, auth: authReducer,
+        [api.reducerPath]: api.reducer, user: authReducer,
     }, middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false}).concat(api.middleware),
 })

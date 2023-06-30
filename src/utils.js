@@ -13,3 +13,8 @@ export const useInput = (initialValue) => {
 
     return [value, handleChange, reset, setValue];
 }
+import {useSelector} from "react-redux";
+
+export const useAuth = ()=>{
+    return useSelector((state) => state.user)
+}
