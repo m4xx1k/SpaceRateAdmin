@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 
-const initialState = { selectedCategories:[] };
+const initialState = { selectedCategories:[], selectedPlaces:[] };
 
 const place = createSlice({
     name: 'place',
@@ -22,12 +22,29 @@ const place = createSlice({
         selectOneCategory(state,action){
             const id = action.payload
             state.selectedCategories = [id]
+        },
+        togglePlaces(state, action) {
+            const placeId = action.payload;
+
+            if(state.selectedPlaces.includes(placeId)) {
+                state.selectedPlaces = state.selectedPlaces.filter(place=>place!==placeId)
+            }else{
+                state.selectedPlaces.push(placeId)
+            }
+        },
+        selectAllPlaces(state){
+            state.selectedPlaces = []
+        },
+        selectOnePlace(state,action){
+            const id = action.payload
+            state.selectedPlaces = [id]
         }
 
     },
 });
 
-export const { toggleCategories,selectAllCategories,selectOneCategory } = place.actions;
+export const { toggleCategories,selectAllCategories,selectOneCategory,
+    togglePlaces,selectAllPlaces,selectOnePlace} = place.actions;
 
 
 

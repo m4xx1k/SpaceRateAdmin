@@ -35,7 +35,7 @@ const NewCategory = () => {
         }
     }
     return (<div className={s.container}>
-            <h2 className={s.title}>New category</h2>
+            <h2 className={s.title}>Новая категория</h2>
             <div className={s.form}>
                 <div className={s["form-group"]}>
                     <label className={s["custom-file-upload"]}>

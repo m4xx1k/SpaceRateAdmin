@@ -6,15 +6,19 @@ import clsx from 'clsx';
 const routes = [
     {
         path: '/categories',
-        name: 'categories'
+        name: 'Категории'
     },
     {
         path: '/places',
-        name: 'places'
+        name: 'Места'
     },
     {
         path: '/users',
-        name: 'users'
+        name: 'Пользователи'
+    },
+    {
+        path: '/ratings',
+        name: 'Отзывы'
     },
 ]
 const Sidebar = () => {

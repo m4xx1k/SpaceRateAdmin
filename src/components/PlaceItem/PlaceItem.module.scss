@@ -171,9 +171,14 @@
     transform: scale(1.02);
 }
 .save{
-    background: green;
+    background: greenyellow;
     color: #eee;
 }
 .delete{
     background: red;
+}
+.ratings{
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: underline;
 }

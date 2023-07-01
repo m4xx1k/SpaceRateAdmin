@@ -21,6 +21,6 @@ const baseQueryWithReauth = async (args, api,extraOption)=>{
 export const api = createApi({
     reducerPath:"appApi",
     baseQuery: baseQueryWithReauth,
-    tagTypes:[],
+    tagTypes:['Place','Rating'],
     endpoints:build=>({})
 })

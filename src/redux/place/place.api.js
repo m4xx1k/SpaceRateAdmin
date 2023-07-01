@@ -2,9 +2,21 @@ import {api} from "../api.js";
 
 export const placeApi = api.injectEndpoints({
     endpoints: builder=>({
-        fetchAllPlaces:builder.query({
+        fetchAllFullPlaces:builder.query({
             query:()=>'place',
             providesTags:['Place']
+        }),
+        fetchAllPlaces:builder.query({
+           query:()=>'place/findAll',
+           providesTags:['Place']
+        }),
+        fetchRatingsByPlaces:builder.query({
+            query:body=>({
+                url:'place/ratingsByPlaces',
+                method:"POST",
+                body
+            }),
+            providesTags:['Rating']
         }),
         fetchPlacesByCategories:builder.query({
             query:body=>({
@@ -66,8 +78,15 @@ export const placeApi = api.injectEndpoints({
                 method:'DELETE',
             }),
             invalidatesTags:['Place']
+        }),
+        deleteRating:builder.mutation({
+            query:id=>({
+                url:`place/deleterating/${id}`,
+                method:"DELETE"
+            }),
+            invalidatesTags:['Rating']
         })
     })
 })
 
-export const {useFetchPlacesByCategoriesQuery, useDeletePhotoMutation,useCreatePlacePhotoMutation, useCreatePlaceMutation, useFetchAllPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi
+export const {useDeleteRatingMutation,useFetchRatingsByPlacesQuery,useFetchAllPlacesQuery,useFetchPlacesByCategoriesQuery, useDeletePhotoMutation,useCreatePlacePhotoMutation, useCreatePlaceMutation, useFetchAllFullPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi

@@ -7,7 +7,7 @@ const Category = () => {
     const {data} = useFetchAllQuery()
     return (
         <div className={'container'}>
-            <h2 className={s.title}>Category</h2>
+            <h2 className={'title'}>Категории</h2>
             <NewCategory/>
             <div className={s.list}>
                 {

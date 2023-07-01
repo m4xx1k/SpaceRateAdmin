@@ -1,5 +1,9 @@
 import React, {useEffect} from 'react';
-import {useFetchAllPlacesQuery, useFetchPlacesByCategoriesQuery} from "../../redux/place/place.api.js";
+import {
+    useFetchAllFullPlacesQuery,
+
+    useFetchPlacesByCategoriesQuery
+} from "../../redux/place/place.api.js";
 import NewPlace from "../../components/NewPlace/NewPlace.jsx";
 import PlaceItem from "../../components/PlaceItem/PlaceItem.jsx";
 import {useFetchAllQuery} from "../../redux/category/category.api.js";
@@ -8,7 +12,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectAllCategories, toggleCategories} from "../../redux/place/place.slice.js";
 
 const Places = () => {
-    const {data} = useFetchAllPlacesQuery()
     const {data: categories} = useFetchAllQuery()
     const dispatch = useDispatch()
     const {selectedCategories} = useSelector(state => state.place)
@@ -21,6 +24,7 @@ const Places = () => {
     }
     return (
         <div className={'container'}>
+            <h2 className={'title'}>Места</h2>
             <NewPlace/>
             <ul className={s.categories}>
                 <li onClick={() => handleSelectCategory('all')}

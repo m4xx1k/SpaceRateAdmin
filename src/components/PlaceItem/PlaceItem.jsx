@@ -13,6 +13,9 @@ import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import upload from '../../assets/upload.svg'
 import saveIcon from '../../assets/save_icon.svg'
 import deleteIcon from '../../assets/trash.svg'
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {selectOnePlace} from "../../redux/place/place.slice.js";
 const PlaceItem = ({data}) => {
     const [photos, setPhotos] = useState({})
     useEffect(() => {
@@ -131,6 +134,8 @@ const PlaceItem = ({data}) => {
             console.log(e)
         }
     }
+    const dispatch = useDispatch()
+    const handleSelectPlace = ()=>dispatch(selectOnePlace(data.place._id))
 
     return (
         <div className={`${s.container} ${isOpen ? s.open : ''}`}>
@@ -176,6 +181,8 @@ const PlaceItem = ({data}) => {
                             ))
                         }
                     </select>
+                    <Link onClick={handleSelectPlace} className={s.ratings} to={'/ratings'}>Отзывы</Link>
+
                 </div>
 
                 <textarea value={description} rows={8} onChange={e => setDescription(e.target.value)}

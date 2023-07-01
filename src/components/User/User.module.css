@@ -1,7 +1,6 @@
 .container{
     width: fit-content;
-    max-width: 45%;
-    gap: 64px;
+    gap: 8px;
     display: flex;
     align-items: center;
     justify-content: space-around;
