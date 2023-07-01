@@ -25,7 +25,7 @@
 
 /* Previous CSS... */
 
-.fileInput {
+.imageInput {
     display: none;
 }
 
@@ -37,14 +37,17 @@
     padding: 1em 0;
 }
 
-.input, .fileInput {
+.input, .imageInput {
     padding: 4px 10px;
     border: none;
     border-bottom: 1px solid #000; /* Material Design primary color */
     background: none;
-    font-size: 16px;
     outline: none;
-    border-radius: 0px;
+    border-radius: 0;
+}
+.input{
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+
 }
 .uploadButton{
     width: 32px;

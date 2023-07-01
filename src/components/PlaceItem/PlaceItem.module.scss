@@ -7,8 +7,35 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     margin: 8px;
 }
-
-.fileInput {
+.container.open{
+    flex-direction: column;
+    .photos{
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .desc{
+        max-width: 100%;
+    }
+    .controls{
+        margin-top: 16px;
+        flex-direction: row
+    }
+    .additional{
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+    }
+}
+.imageInput {
     display: none;
 }
 .deletePhoto{
@@ -40,6 +67,10 @@
     height: auto;
     object-fit: contain;
 }
+.icon{
+    width: 24px;
+    height: 24px;
+}
 .photo_container{
     position: relative;
 
@@ -69,27 +100,25 @@
     border:1px solid black;
 }
 .photos{
-    width: 300px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 2px;
+    margin-right: 8px;
 
 }
-.fileInput {
+.imageInput {
     display: none;
 }
 
-.info, .additional{
-    width: calc(50% - 80px);
-}
+
 .name{
-    font-size: 18px;
     font-weight: 700;
 }
 .desc{
     font-size: 14px;
-    max-width: 400px;
+    max-width: 95%;
+    height: 100%;
     border:1px solid #ddd;
     border-radius: 4px;
     padding: 2px;
@@ -100,12 +129,13 @@
     flex-direction: column;
     gap: 4px;
     margin: 0 4px;
+    flex:1 1 auto;
 }
 .additional{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
+
+    display: none;
+
+
 }
 .expand{
     width: 16px;
@@ -126,8 +156,13 @@
     font-size: 14px;
     font-weight: 300;
 }
+.controls{
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
 .save, .delete{
-    padding: 8px 16px;
+    padding: 4px;
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     border-radius: 8px;
     transition: all ease-in-out 400ms;

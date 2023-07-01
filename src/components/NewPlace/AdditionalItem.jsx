@@ -3,7 +3,7 @@ import s from "./NewPlace.module.css";
 
 const AdditionalItem = ({name, value = '', handleChange}) => {
     const [input, setInput] = useState(value)
-    useEffect(() => handleChange(prev => ({...prev, [name]: {value}})), [])
+    useEffect(() => handleChange(prev => ({...prev, [name]: value})), [])
     const onChange = e => {
         setInput(e.target.value)
         handleChange(prev => {

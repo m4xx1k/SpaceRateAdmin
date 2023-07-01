@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import s from "../PlaceItem/PlaceItem.module.css";
+import s from "../PlaceItem/PlaceItem.module.scss";
 
 const PlacePhoto = ({id, data, changePhoto, i, deletePhoto}) => {
 
@@ -14,7 +14,7 @@ const PlacePhoto = ({id, data, changePhoto, i, deletePhoto}) => {
                 accept='image/*'
                 multiple
                 onChange={onChange}
-                className={s.fileInput}
+                className={`${s.imageInput}`}
             />
             <img data-index={i} className={s.photo} src={data.src} alt="" onClick={() => fileInput.current.click()}/>
             <span className={s.photoI}>{i}</span>

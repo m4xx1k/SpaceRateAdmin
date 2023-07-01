@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import s from './PlaceItem.module.css'
+import s from './PlaceItem.module.scss'
 import AdditionalItem from "../NewPlace/AdditionalItem.jsx";
 import PlacePhoto from "../PlacePhoto/PlacePhoto.jsx";
 import {
@@ -11,22 +11,10 @@ import {
 } from "../../redux/place/place.api.js";
 import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import upload from '../../assets/upload.svg'
-
+import saveIcon from '../../assets/save_icon.svg'
+import deleteIcon from '../../assets/trash.svg'
 const PlaceItem = ({data}) => {
     const [photos, setPhotos] = useState({})
-
-    const [isOpen, setIsOpen] = useState(false)
-
-    const [name, setName] = useState(data.place.name)
-
-    const [description, setDescription] = useState(data.place.description)
-
-    const [additionalData, setAdditionalData] = useState({})
-
-    const [categoryId, setCategoryId] = useState(data.place.categoryId)
-
-    const {data: categories, isLoading} = useFetchAllQuery()
-    const fileInput = useRef(null)
     useEffect(() => {
         const initialPhotos = {}
         data.photos.forEach(e => {
@@ -41,22 +29,25 @@ const PlaceItem = ({data}) => {
 
     }, [])
 
+    const [isOpen, setIsOpen] = useState(false)
+
+    const [name, setName] = useState(data.place.name)
+    const [description, setDescription] = useState(data.place.description)
+    const [categoryId, setCategoryId] = useState(data.place.categoryId)
+    const {data: categories, isLoading} = useFetchAllQuery()
+    const [additionalData, setAdditionalData] = useState({})
+
+
+    const imageInput = useRef(null)
+
     const [sendPhoto] = useUpdatePlacePhotoMutation()
+    const [deletePhoto] = useDeletePhotoMutation()
+    const [createPhoto] = useCreatePlacePhotoMutation()
+
     const [removePlace] = useRemovePlaceMutation()
     const [updateInfo] = useUpdatePlaceInfoMutation()
     const [updatePlace] = useUpdatePlaceMutation()
-    const [deletePhoto] = useDeletePhotoMutation()
-    const handleDeletePhoto = async id => {
-        if(Object.keys(photos)!==1){
-            const newPhotos = {...photos}
-            if (!photos[id].isCreate)
-                await deletePhoto(id)
-            delete newPhotos[id]
-            setPhotos(newPhotos)
-        }
 
-
-    }
     const changePhoto = (id, photo) => {
         const newPhotos = {...photos}
         newPhotos[id] = {
@@ -68,7 +59,7 @@ const PlaceItem = ({data}) => {
         setPhotos(newPhotos)
     }
     const handleAddPhoto = (e) => {
-        if(Object.keys(photos)<8){
+        if (Object.keys(photos).length < 8) {
             const photo = e.target.files[0]
             const url = URL.createObjectURL(photo)
             const newPhotos = {...photos}
@@ -82,7 +73,6 @@ const PlaceItem = ({data}) => {
         }
 
     }
-    const [createPhoto] = useCreatePlacePhotoMutation()
     const handleChangePhoto = async () => {
         for (const photoId of Object.keys(photos)) {
             if (!!photos[photoId].isCreate) {
@@ -101,7 +91,17 @@ const PlaceItem = ({data}) => {
             }
         }
     }
+    const handleDeletePhoto = async id => {
+        if (Object.keys(photos).length !== 1) {
+            const newPhotos = {...photos}
+            if (!photos[id].isCreate)
+                await deletePhoto(id)
+            delete newPhotos[id]
+            setPhotos(newPhotos)
+        }
 
+
+    }
     const handleDelete = async () => {
         await removePlace(data.place._id)
     }
@@ -109,19 +109,20 @@ const PlaceItem = ({data}) => {
         try {
             if (description && name && categoryId) {
                 const id = data.place._id
-
-                const main = await updatePlace({id, body: {description, name, categoryId}})
-
-                handleChangePhoto()
-
+                console.log(additionalData)
                 const info = Object.keys(data.info).map(e => {
 
                     const elem = data.info[e]
                     return {
-                        _id: elem._id, name: elem.name, value: additionalData[elem.name].value
+                        _id: elem._id, name: elem.name, value: additionalData[elem.name]
                     }
                 })
+                console.log(info)
+                await updatePlace({id, body: {description, name, categoryId}})
+
                 await updateInfo({id, body: {data: info}})
+
+                await handleChangePhoto()
 
             } else {
                 alert('Поле не может бьіть пустьім')
@@ -132,52 +133,54 @@ const PlaceItem = ({data}) => {
     }
 
     return (
-        <div className={s.container}>
+        <div className={`${s.container} ${isOpen ? s.open : ''}`}>
             <div className={s.photos}>
                 {
                     isOpen ?
                         <>
-                            {Object.keys(photos).map((id, i) => <PlacePhoto deletePhoto={handleDeletePhoto} key={id} i={i + 1} id={id}
+                            {Object.keys(photos).map((id, i) => <PlacePhoto deletePhoto={handleDeletePhoto} key={id}
+                                                                            i={i + 1} id={id}
                                                                             data={photos[id]}
                                                                             changePhoto={changePhoto}/>)}
-                            <div className={s.photos}>
+                            <div className={s.photo}>
                                 <input
                                     type='file'
-                                    ref={fileInput}
+                                    ref={imageInput}
                                     accept='image/*'
                                     multiple
                                     onChange={handleAddPhoto}
-                                    className={s.fileInput}
+                                    className={`${s.imageInput} imageInput`}
                                 />
-                                <button onClick={() => fileInput.current.click()} className={s.uploadButton}>
+                                <button onClick={() => imageInput.current.click()} className={s.uploadButton}>
                                     <img src={upload} alt=""/>
                                 </button>
                             </div>
 
                         </>
 
-                        : <PlacePhoto deletePhoto={handleDeletePhoto} i={1} id={Object.keys(photos)[0]} data={photos[Object.keys(photos)[0]]}
+                        : <PlacePhoto deletePhoto={handleDeletePhoto} i={1} id={Object.keys(photos)[0]}
+                                      data={photos[Object.keys(photos)[0]]}
                                       changePhoto={changePhoto}/>
 
                 }
             </div>
             {/*<img alt={''} src={`http://localhost:5001/places/${data.photos[0].photo}`} className={s.photo}></img>*/}
             <div className={s["info"]}>
-                <input value={name} onChange={e => setName(e.target.value)} className={s["name"]}/>
-                <select value={categoryId} onChange={e => setCategoryId(e.target.value)}
-                        name="" id="">
-                    {
-                        categories?.map(elem => (
-                            <option key={elem._id} value={elem._id}>{elem.name}</option>
-                        ))
-                    }
-                </select>
-                <textarea value={description} rows={4} onChange={e => setDescription(e.target.value)}
-                          className={s["desc"]}/>
                 <div className="row-wrap">
-                    <button className={s.save} onClick={handleSaveAll}>Сохранить</button>
-                    <button className={s.delete} onClick={handleDelete}>Удалить</button>
+                    <input value={name} onChange={e => setName(e.target.value)} className={s["name"]}/>
+                    <select value={categoryId} onChange={e => setCategoryId(e.target.value)}
+                            name="" id="">
+                        {
+                            categories?.map(elem => (
+                                <option key={elem._id} value={elem._id}>{elem.name}</option>
+                            ))
+                        }
+                    </select>
                 </div>
+
+                <textarea value={description} rows={8} onChange={e => setDescription(e.target.value)}
+                          className={s["desc"]}/>
+
             </div>
             <ul className={s["additional"]}>
                 {
@@ -191,11 +194,22 @@ const PlaceItem = ({data}) => {
                     })
                 }
             </ul>
-            <button onClick={() => setIsOpen(prev => !prev)}>
-                {
-                    isOpen ? '▲' : ' ▼ '
-                }
-            </button>
+            <div className={s["controls"]}>
+                    <button className={s.save} onClick={handleSaveAll}>
+                        <img src={saveIcon} className={s.icon} alt=""/>
+                    </button>
+                    <button className={s.delete} onClick={handleDelete}>
+
+                        <img src={deleteIcon} className={s.icon} alt=""/>
+
+                    </button>
+                    <button onClick={() => setIsOpen(prev => !prev)}>
+                        {
+                            isOpen ? '▲' : ' ▼ '
+                        }
+                    </button>
+            </div>
+
         </div>
     );
 };
