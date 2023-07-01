@@ -6,6 +6,14 @@ export const placeApi = api.injectEndpoints({
             query:()=>'place',
             providesTags:['Place']
         }),
+        fetchPlacesByCategories:builder.query({
+            query:body=>({
+                url:'place/categories',
+                method:"POST",
+                body
+            }),
+            providesTags:['Place']
+        }),
         createPlace: builder.mutation({
             query: body =>({
                 url:'place',
@@ -62,4 +70,4 @@ export const placeApi = api.injectEndpoints({
     })
 })
 
-export const {useDeletePhotoMutation,useCreatePlacePhotoMutation, useCreatePlaceMutation, useFetchAllPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi
+export const {useFetchPlacesByCategoriesQuery, useDeletePhotoMutation,useCreatePlacePhotoMutation, useCreatePlaceMutation, useFetchAllPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi

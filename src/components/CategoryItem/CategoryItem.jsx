@@ -4,6 +4,9 @@ import success from '../../assets/success.svg'
 import deleteIcon from '../../assets/delete.svg'
 import {useRemoveMutation, useUpdateMutation} from "../../redux/category/category.api.js";
 import {useInput} from "../../utils.js";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {selectOneCategory} from "../../redux/place/place.slice.js";
 
 const CategoryItem = ({data}) => {
     const [imageUrl, setImageUrl] = useState(`${import.meta.env.VITE__API}/categories/${data.photo}`)
@@ -25,16 +28,11 @@ const CategoryItem = ({data}) => {
     }
     const handleChange = async () => {
         try {
-            console.log(1)
-            console.log(isNewData && !!image && !!name, isNewData, image, name)
             if (isNewData && !!name) {
-                console.log(2)
                 const formdata = new FormData()
                 formdata.append('name', name)
                 formdata.append('photo', image)
-                console.log(data._id)
-                const res = await update({id: data._id, body: formdata})
-                console.log(res)
+                await update({id: data._id, body: formdata})
             }
         } catch (e) {
             console.log(e)
@@ -50,6 +48,8 @@ const CategoryItem = ({data}) => {
             console.log(e)
         }
     }
+    const dispatch = useDispatch()
+    const handleSelectCategory = () => dispatch(selectOneCategory(data._id))
     return (
         <div className={s.container}>
             <div className={s["info"]}>
@@ -61,7 +61,10 @@ const CategoryItem = ({data}) => {
                     <img className={s.img} src={imageUrl} alt="+"/>
 
                 </label>
-                <input value={name} onChange={handleChangeName} className={s.name}/>
+                <div className={'column'}>
+                    <input value={name} onChange={handleChangeName} className={s.name}/>
+                    <Link onClick={handleSelectCategory} className={s.category} to={'/places'}>Посмотреть места</Link>
+                </div>
             </div>
             <div className={s.controls}>
                 <button className={s.save} onClick={handleChange}>
