@@ -58,7 +58,11 @@ const CategoryItem = ({data}) => {
                     <input className={s.input} onChange={handleImageChange} type="file"
                            accept="image/*"
                            id="photo" name="photo"/>
-                    <img className={s.img} src={imageUrl} alt="+"/>
+                    <picture>
+                        {/*<source className={s.img} srcSet={imageUrl.split('.')[0] + '.webp'} type="image/webp"/>*/}
+                        <img className={s.img} src={imageUrl} alt="+"/>
+
+                    </picture>
 
                 </label>
                 <div className={'column'}>
