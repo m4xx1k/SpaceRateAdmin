@@ -8,7 +8,6 @@ const Layout = () => {
          <Sidebar/>
             <main>
                 <Outlet/>
-
             </main>
         </div>
     );

@@ -20,6 +20,10 @@ const routes = [
         path: '/ratings',
         name: 'Отзывы'
     },
+    {
+        path: '/mailing',
+        name: 'Рассылка'
+    },
 ]
 const Sidebar = () => {
     const {pathname} = useLocation()

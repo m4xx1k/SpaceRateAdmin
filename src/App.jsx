@@ -7,6 +7,7 @@ import Users from "./pages/Users.jsx";
 import AuthRequire from "./components/AuthRequire.jsx";
 import Login from "./pages/Login.jsx";
 import Ratings from "./pages/Ratings/Ratings.jsx";
+import Mailing from "./pages/Mailing/Mailing";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                     <Route element={<Places/>} path={'/places'}/>
                     <Route element={<Users/>} path={'/users'}/>
                     <Route element={<Ratings/>} path={'/ratings'}/>
+                    <Route element={<Mailing/>} path={'/mailing'}/>
                     <Route element={<Category/>} path={'*'}/>
                 </Route>
 

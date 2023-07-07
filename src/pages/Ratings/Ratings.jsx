@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useFetchAllPlacesQuery, useFetchRatingsByPlacesQuery} from "../../redux/place/place.api.js";
 import s from "./Ratings.module.scss";
-import {selectAllCategories, selectAllPlaces, toggleCategories, togglePlaces} from "../../redux/place/place.slice.js";
+import {selectAllPlaces, togglePlaces} from "../../redux/place/place.slice.js";
 import RatingItem from "../../components/RatingItem/RatingItem.jsx";
 
 const Ratings = () => {
