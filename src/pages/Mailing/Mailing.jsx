@@ -3,11 +3,15 @@ import axios from 'axios';
 import s from './Mailing.module.scss';
 import trash from '../../assets/trash.svg'
 import replace from '../../assets/replace.svg'
+import {useNotificationCenter} from "react-toastify/addons/use-notification-center";
+import {toast} from "react-toastify";
 
 const Mailing = () => {
     const [files, setFiles] = useState([]);
     const [message, setMessage] = useState('');
     const fileInputRef = useRef(null)
+    const { clear } = useNotificationCenter();
+
     const handleAddFile = (e) => {
         setFiles([...files, ...Array.from(e.target.files)]);
     }
@@ -25,6 +29,15 @@ const Mailing = () => {
     }
 
     const handleSubmit = async (e) => {
+        const id = toast.loading('Отправка...',{
+            position: "top-right",
+            autoClose:false,
+            hideProgressBar: true,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
         e.preventDefault();
         const formData = new FormData();
         files.forEach((file) => {
@@ -35,9 +48,36 @@ const Mailing = () => {
             await axios.post('https://bot.goodjoy.uz/broadcast', formData);
             setFiles([])
             setMessage('')
-            alert('Сообщение отправлено=)');
+            clear()
+            toast.update(id,{
+                render:'Отправлено',
+                type:'success',
+                position: "top-right",
+                hideProgressBar: false,
+                autoClose:3000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                isLoading:false
+            })
         } catch (error) {
-            alert('Ошибка:/');
+            console.log(error)
+            toast.update(id,{
+                render:'Ошибка',
+                type:'error',
+                position: "top-right",
+                hideProgressBar: false,
+                autoClose:3000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+
+                isLoading:false
+            })
         }
 
 
