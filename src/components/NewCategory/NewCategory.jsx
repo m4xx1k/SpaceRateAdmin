@@ -4,6 +4,8 @@ import {useCreateMutation} from "../../redux/category/category.api.js";
 import success from '../../assets/success.svg'
 import upload from '../../assets/upload.svg'
 import {useInput} from "../../utils.js";
+import {loadingToast, successToast, errorToast} from "../../utils";
+
 const NewCategory = () => {
     const [image, setImage] = useState(null)
     const [imageUrl, setImageUrl] = useState(null)
@@ -16,15 +18,20 @@ const NewCategory = () => {
         }
     }
     const handleCreateCategory = async () => {
+        let id
         try {
             if(!!image && !!name){
+                 id = loadingToast('Создание...')
+
                 let formdata = new FormData()
                 formdata.append('photo', image)
                 formdata.append('name', name)
                 await createCategory(formdata)
                 resetName()
                 setImage(null)
+                successToast(id)
             }else{
+                if(id)errorToast(id)
                 alert('fill name & photo')
             }
 

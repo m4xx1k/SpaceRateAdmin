@@ -16,6 +16,7 @@ import deleteIcon from '../../assets/trash.svg'
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {selectOnePlace} from "../../redux/place/place.slice.js";
+import {errorToast, loadingToast, successToast} from "../../utils.js";
 const PlaceItem = ({data}) => {
     const [photos, setPhotos] = useState({})
     useEffect(() => {
@@ -77,6 +78,7 @@ const PlaceItem = ({data}) => {
 
     }
     const handleChangePhoto = async () => {
+
         for (const photoId of Object.keys(photos)) {
             if (!!photos[photoId].isCreate) {
                 const formData = new FormData()
@@ -109,10 +111,11 @@ const PlaceItem = ({data}) => {
         await removePlace(data.place._id)
     }
     const handleSaveAll = async () => {
+        let toastId
         try {
             if (description && name && categoryId) {
+                toastId = loadingToast('Сохранение...')
                 const id = data.place._id
-                console.log(additionalData)
                 const info = Object.keys(data.info).map(e => {
 
                     const elem = data.info[e]
@@ -120,14 +123,14 @@ const PlaceItem = ({data}) => {
                         _id: elem._id, name: elem.name, value: additionalData[elem.name]
                     }
                 })
-                console.log(info)
                 await updatePlace({id, body: {description, name, categoryId}})
 
                 await updateInfo({id, body: {data: info}})
 
                 await handleChangePhoto()
-
+                successToast(toastId)
             } else {
+                if(toastId) errorToast(toastId)
                 alert('Поле не может бьіть пустьім')
             }
         } catch (e) {

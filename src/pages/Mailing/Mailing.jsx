@@ -4,7 +4,7 @@ import s from './Mailing.module.scss';
 import trash from '../../assets/trash.svg'
 import replace from '../../assets/replace.svg'
 import {useNotificationCenter} from "react-toastify/addons/use-notification-center";
-import {toast} from "react-toastify";
+import {loadingToast, successToast, errorToast} from "../../utils";
 
 const Mailing = () => {
     const [files, setFiles] = useState([]);
@@ -29,15 +29,7 @@ const Mailing = () => {
     }
 
     const handleSubmit = async (e) => {
-        const id = toast.loading('Отправка...',{
-            position: "top-right",
-            autoClose:false,
-            hideProgressBar: true,
-            closeOnClick: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
+        const id = loadingToast('Отправка...')
         e.preventDefault();
         const formData = new FormData();
         files.forEach((file) => {
@@ -48,36 +40,10 @@ const Mailing = () => {
             await axios.post('https://bot.goodjoy.uz/broadcast', formData);
             setFiles([])
             setMessage('')
-            clear()
-            toast.update(id,{
-                render:'Отправлено',
-                type:'success',
-                position: "top-right",
-                hideProgressBar: false,
-                autoClose:3000,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                isLoading:false
-            })
+            successToast(id, 'Отправлено')
         } catch (error) {
             console.log(error)
-            toast.update(id,{
-                render:'Ошибка',
-                type:'error',
-                position: "top-right",
-                hideProgressBar: false,
-                autoClose:3000,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-
-                isLoading:false
-            })
+            errorToast(id)
         }
 
 

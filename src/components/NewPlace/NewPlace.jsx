@@ -5,6 +5,7 @@ import {useCreatePlaceMutation} from "../../redux/place/place.api.js";
 import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import upload from '../../assets/upload.svg'
 import AdditionalItem from "./AdditionalItem.jsx";
+import {loadingToast, successToast, errorToast} from "../../utils";
 
 const NewPlace = () => {
     const [name, handleNameChange, resetName] = useInput('');
@@ -30,7 +31,9 @@ const NewPlace = () => {
     };
 
     const handleSubmit = async () => {
+        let id
         try {
+            id = loadingToast('Создание...')
             const formData = new FormData()
             formData.append('name', name);
             formData.append('categoryId', categoryId);
@@ -50,8 +53,10 @@ const NewPlace = () => {
             resetName()
             resetDescription()
             setAdditionalData({})
+            successToast(id)
             // window.location.reload()
         } catch (e) {
+            errorToast(id)
             console.error(e)
         }
 

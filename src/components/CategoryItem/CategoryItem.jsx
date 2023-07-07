@@ -7,6 +7,7 @@ import {useInput} from "../../utils.js";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {selectOneCategory} from "../../redux/place/place.slice.js";
+import {loadingToast, successToast, errorToast} from "../../utils";
 
 const CategoryItem = ({data}) => {
     const [imageUrl, setImageUrl] = useState(`${import.meta.env.VITE__API}/categories/${data.photo}`)
@@ -27,14 +28,18 @@ const CategoryItem = ({data}) => {
         }
     }
     const handleChange = async () => {
+        let id
         try {
             if (isNewData && !!name) {
+                const id =  loadingToast('Сохранение...')
                 const formdata = new FormData()
                 formdata.append('name', name)
                 formdata.append('photo', image)
                 await update({id: data._id, body: formdata})
+                successToast(id)
             }
         } catch (e) {
+            errorToast(id)
             console.log(e)
         }
     }
