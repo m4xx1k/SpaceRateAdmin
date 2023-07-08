@@ -24,6 +24,10 @@ const routes = [
         path: '/mailing',
         name: 'Рассылка'
     },
+    {
+        path: '/categoryadvertisement',
+        name: 'Баннеры категорий'
+    },
 ]
 const Sidebar = () => {
     const {pathname} = useLocation()

@@ -139,7 +139,6 @@ const PlaceItem = ({data}) => {
     }
     const dispatch = useDispatch()
     const handleSelectPlace = ()=>dispatch(selectOnePlace(data.place._id))
-
     return (
         <div className={`${s.container} ${isOpen ? s.open : ''}`}>
             <div className={s.photos}>
@@ -172,7 +171,7 @@ const PlaceItem = ({data}) => {
 
                 }
             </div>
-            {/*<img alt={''} src={`http://localhost:5001/places/${data.photos[0].photo}`} className={s.photo}></img>*/}
+            {/*<img alt={''} src={`https://api.goodjoy.uz/places/${data.photos[0].photo}`} className={s.photo}></img>*/}
             <div className={s["info"]}>
                 <div className="row-wrap">
                     <input value={name} onChange={e => setName(e.target.value)} className={s["name"]}/>

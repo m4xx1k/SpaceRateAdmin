@@ -58,7 +58,7 @@ const CategoryItem = ({data}) => {
     return (
         <div className={s.container}>
             <div className={s["info"]}>
-                {/*<img className={s.photo} src={`http://localhost:5001/categories/${data.photo}`} alt=""/>*/}
+                {/*<img className={s.photo} src={`https://api.goodjoy.uz/categories/${data.photo}`} alt=""/>*/}
                 <label className={s["custom-file-upload"]}>
                     <input className={s.input} onChange={handleImageChange} type="file"
                            accept="image/*"
