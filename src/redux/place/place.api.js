@@ -89,4 +89,16 @@ export const placeApi = api.injectEndpoints({
     })
 })
 
-export const {useDeleteRatingMutation,useFetchRatingsByPlacesQuery,useFetchAllPlacesQuery,useFetchPlacesByCategoriesQuery, useDeletePhotoMutation,useCreatePlacePhotoMutation, useCreatePlaceMutation, useFetchAllFullPlacesQuery,useUpdatePlacePhotoMutation,useUpdatePlaceInfoMutation,useUpdatePlaceMutation, useRemovePlaceMutation} = placeApi
+export const {useDeleteRatingMutation,
+    useFetchRatingsByPlacesQuery,
+    useFetchAllPlacesQuery,
+    useFetchPlacesByCategoriesQuery,
+    useDeletePhotoMutation,
+    useCreatePlacePhotoMutation,
+    useCreatePlaceMutation,
+    useFetchAllFullPlacesQuery,
+    useUpdatePlacePhotoMutation,
+    useUpdatePlaceInfoMutation,
+    useUpdatePlaceMutation,
+    useRemovePlaceMutation
+} = placeApi

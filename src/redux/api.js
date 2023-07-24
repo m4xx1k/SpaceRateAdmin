@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl:'https://api.goodjoy.uz',
+    baseUrl:import.meta.env.VITE__API,
     // baseUrl:"https://api.goodjoy.uz",
     prepareHeaders: (headers) =>{
         const token = localStorage.getItem('token')
@@ -21,6 +21,6 @@ const baseQueryWithReauth = async (args, api,extraOption)=>{
 export const api = createApi({
     reducerPath:"appApi",
     baseQuery: baseQueryWithReauth,
-    tagTypes:['Place','Rating'],
+    tagTypes:['Place','Rating','EventType','Event'],
     endpoints:build=>({})
 })

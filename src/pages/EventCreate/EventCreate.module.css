@@ -1,0 +1,122 @@
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+}
+.top{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+.form_group{
+    display: flex;
+    flex-direction: column;
+}
+.form_group-desc{
+    align-self: stretch;
+    width: 100%;
+}
+
+
+.textarea{
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+	background: #f5f5f5; 
+	border-radius: 4px;
+	
+}
+.input, .imageInput {
+    padding: 4px 10px;
+    border: none;
+    border-bottom: 1px solid #000; /* Material Design primary color */
+    background: none;
+    outline: none;
+    border-radius: 0;
+}
+.input{
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+
+}
+.uploadButton{
+    padding: 8px;
+    color: #fff;
+    background: blue;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.submitButton{
+    width: 200px;
+}
+.submitButton, .removeButton {
+    padding: 10px;
+    background: blue; /* Material Design primary color */
+    color: #ffffff; /* white color */
+    border-radius: 4px; /* Material Design border radius */
+}
+
+
+
+.imagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.imageWrapper {
+    position: relative;
+    margin: 5px;
+}
+.imageWrapper img{
+
+    width: 128px;
+}
+.imageWrapper:hover .removeButton{
+    display: flex;
+}
+.removeButton {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #f44336;
+    width: 16px;
+    height: 16px;/* Material Design error color */
+}
+
+.removeButton:hover {
+    background: #d32f2f; /* Material Design error dark color */
+}
+.photos{
+    padding: 4px;
+
+}
+.imageInput{
+    display: none;
+}
+.create{
+    padding: 12px 36px;
+    font-size: 18px;
+    background: blue;
+    color: #fff;
+    margin: 8px;
+    border-radius: 12px;
+}
+.subtitle{
+    font-size: 20px;
+    font-weight: 500;
+}
+.infos_top{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+}
+.error{
+    font-size: 14px;
+    color:red;
+}

@@ -38,7 +38,7 @@ const PlaceItem = ({data}) => {
     const [name, setName] = useState(data.place.name)
     const [description, setDescription] = useState(data.place.description)
     const [categoryId, setCategoryId] = useState(data.place.categoryId)
-    const {data: categories, isLoading} = useFetchAllQuery()
+    const {data: categories} = useFetchAllQuery()
     const [additionalData, setAdditionalData] = useState({})
 
 

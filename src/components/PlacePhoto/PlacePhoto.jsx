@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import s from "../PlaceItem/PlaceItem.module.scss";
 
 const PlacePhoto = ({id, data, changePhoto, i, deletePhoto}) => {

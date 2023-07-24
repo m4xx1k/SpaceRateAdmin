@@ -1,0 +1,30 @@
+.item {
+    padding: 8px 16px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    border-radius: 4px;
+
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.delete img,
+.edit img{
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    max-width: 32px;
+}
+
+.edit{
+    border-radius: 4px;
+    background: orange;
+}

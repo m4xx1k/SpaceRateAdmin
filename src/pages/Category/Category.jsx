@@ -1,4 +1,3 @@
-import React from 'react';
 import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import s from './Category.module.css'
 import CategoryItem from "../../components/CategoryItem/CategoryItem.jsx";

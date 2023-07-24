@@ -1,4 +1,3 @@
-import React from 'react';
 import s from './Sidebar.module.css'
 import {Link, useLocation} from "react-router-dom";
 import clsx from 'clsx';
@@ -27,6 +26,18 @@ const routes = [
     {
         path: '/categoryadvertisement',
         name: 'Баннеры категорий'
+    },
+    {
+        path: '/event/create',
+        name: 'Создать Событие'
+    },
+    {
+        path: '/event',
+        name: 'События'
+    },
+    {
+        path: '/eventtypes',
+        name: 'Типы Событий'
     },
 ]
 const Sidebar = () => {

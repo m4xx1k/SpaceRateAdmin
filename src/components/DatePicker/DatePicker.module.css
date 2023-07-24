@@ -1,0 +1,44 @@
+.container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.dates{
+    display: flex;
+    flex-wrap: wrap;
+}
+.date{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #f5f5f5;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 8px;
+    padding: 8px;
+    margin:4px
+}
+.date_str{
+    margin-top: 12px;
+}
+.time{
+    font: inherit;
+    border:1px solid #ddd;
+    padding: 2px;
+    margin: 4px;
+    border-radius: 2px;
+}
+.time_delete{
+    font-size: 12px;
+    text-decoration: underline;
+}
+.delete{
+    font-size: 32px;
+    color: red;
+    rotate: 45deg;
+
+}
+.subtitle{
+    font-size: 20px;
+    font-weight: 500;
+}

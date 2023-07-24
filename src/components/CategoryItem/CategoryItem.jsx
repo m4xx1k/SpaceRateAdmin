@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import s from './CategoryItem.module.css'
 import success from '../../assets/success.svg'
 import deleteIcon from '../../assets/delete.svg'
