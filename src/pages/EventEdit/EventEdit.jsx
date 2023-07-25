@@ -26,13 +26,7 @@ import {
     useUpdateEventPhotoMutation
 } from "../../redux/event/event.api.js";
 
-const calendarDates = selectedDates => selectedDates.map(item => {
-    const date = parseISO(item.date);
-    return {
-        date: format(date, 'yyyy-MM-dd'),
-        time: format(date, 'HH:mm'),
-    };
-});
+
 
 const EventEdit = () => {
     const {id} = useParams()
@@ -157,7 +151,7 @@ const EventEdit = () => {
         let toastId
         const isDatesError = isValidDates(formatDates(selectedDates))
         const isInfosError = infosHasDuplicates(infos)
-        if (isDatesError) {
+        if (isDatesError && data.event.type.name!=='movie') {
             setDatesError('Ошибка, не может быть одинаковых дат')
         } else {
             setDatesError('')
@@ -173,7 +167,7 @@ const EventEdit = () => {
             setError('')
         }
         // if(isDatesError )
-        if (isDatesError || isInfosError || !name || !description) {
+        if ((isDatesError && data.event.type.name!=='movie') || isInfosError || !name || !description) {
             return
         }
         try {
@@ -185,12 +179,14 @@ const EventEdit = () => {
             await updateEvent({id, body: {description, name, type: typeId}})
 
             await updateInfo({id, infos})
+            if(data.event.type.name!=='movie'){
+                const dates = formatDates(selectedDates).map(date => ({
+                    ...date,
+                    times: [...new Set(date.times)]
+                }))
+                await updateDates({id, dates})
+            }
 
-            const dates = formatDates(selectedDates).map(date => ({
-                ...date,
-                times: [...new Set(date.times)]
-            }))
-            await updateDates({id, dates})
 
             await handleChangePhoto()
 
@@ -220,11 +216,17 @@ const EventEdit = () => {
                         </div>
                         <div className={s["form_group"]}>
                             <label htmlFor="">Тип</label>
-                            <select value={typeId} className={s.input} onChange={e => setTypeId(e.target.value)}>
-                                {types?.map(cat => (
-                                    <option key={cat._id} value={cat._id}>{cat.name}</option>
-                                ))}
-                            </select>
+                            {
+                                data.event.type.name !=='movie' ?
+                                    <select value={typeId} className={s.input} onChange={e => setTypeId(e.target.value)}>
+                                        {types?.map(cat => (
+                                            <option key={cat._id} value={cat._id}>{cat.name}</option>
+                                        ))}
+                                    </select>
+
+                                    : 'КИНО'
+                            }
+
                         </div>
                     </div>
                     <div className={`${s["form_group-desc"]}`}>
@@ -263,7 +265,10 @@ const EventEdit = () => {
 
                 </div>
 
-                <DatePicker error={datesError} selectedDates={selectedDates} setSelectedDates={setSelectedDates}/>
+                {
+                    data.event.type.name !== 'movie' &&
+                    <DatePicker error={datesError} selectedDates={selectedDates} setSelectedDates={setSelectedDates}/>
+                }
                 <Infos error={infosError}  infos={infos} setInfos={setInfos}/>
                 <div className={s["controls"]}>
                     <button className={s.save} onClick={handleSaveAll}>

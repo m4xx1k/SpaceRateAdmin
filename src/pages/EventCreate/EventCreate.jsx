@@ -107,7 +107,7 @@ const EventCreate = () => {
                 <div className={s["form_group"]}>
                     <label htmlFor="">Тип</label>
                     <select value={typeId} className={s.input} onChange={changeTypeId}>
-                        {types?.map(cat => (<option key={cat._id} value={cat._id}>{cat.name}</option>))}
+                        {types?.map(cat => (<option key={cat._id} value={cat._id}>{cat.name ==='movie' ? 'кино':cat.name}</option>))}
                     </select>
                 </div>
             </div>
