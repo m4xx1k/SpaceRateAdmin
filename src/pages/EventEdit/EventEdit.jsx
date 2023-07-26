@@ -40,6 +40,8 @@ const EventEdit = () => {
     const [infos, setInfos] = useState([])
     const [selectedDates, setSelectedDates] = useState([]);
     const [photos, setPhotos] = useState({})
+    const [isVisible, setIsVisible] = useState(false)
+    const [isPremiere, setIsPremiere] = useState(false)
 
     const [datesError, setDatesError] = useState('')
     const [error, setError] = useState('')
@@ -63,6 +65,8 @@ const EventEdit = () => {
             setDescription(data.event.description)
             setTypeId(data.event.type._id)
             setInfos(data.event.info)
+            setIsVisible(data.event.isVisible)
+            setIsPremiere(data.event.isPremiere)
             const formatedDates = data.datesList.map(dateObj => {
                 const date = new Date(dateObj.date);
                 const times = dateObj.times.split(' | ').filter(timeStr=>timeStr).map(timeStr => {
@@ -176,7 +180,7 @@ const EventEdit = () => {
 
             const id = data.event._id
 
-            await updateEvent({id, body: {description, name, type: typeId}})
+            await updateEvent({id, body: {description, name, type: typeId,isPremiere,isVisible}})
 
             await updateInfo({id, infos})
             if(data.event.type.name!=='movie'){
@@ -205,7 +209,22 @@ const EventEdit = () => {
     return (
         <div className={'container'}>
             <h2 className={'title'}>{name}</h2>
+            <div className="row">
+                <div className="row">
+                    <input type="checkbox" className={s.checkbox} checked={isVisible} onChange={()=>setIsVisible(prev=>!prev)}/>
+                    <label htmlFor="">
+                        Видимость
+                    </label>
 
+                </div>
+                { data.event.type.name!=='movie' && <div className="row">
+                    <input type="checkbox" className={s.checkbox} checked={isPremiere}
+                           onChange={() => setIsPremiere(prev => !prev)}/>
+                    <label htmlFor={''}>
+                        Добавить в слайдер
+                    </label>
+                </div>}
+            </div>
             <div>
                 <div className={s.main}>
                     <div className={s.top}>

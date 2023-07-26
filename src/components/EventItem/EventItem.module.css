@@ -17,13 +17,27 @@
 }
 
 .delete img,
-.edit img{
+.edit img,
+.eye img{
     width: 32px;
     height: 32px;
     border-radius: 4px;
     max-width: 32px;
 }
-
+.eye{
+    position: relative;
+    transition:all 200ms ease-in-out;
+}
+.notVisible::before{
+    position: absolute;
+    content:"";
+    height: 100%;
+    width: 2px;
+    top: 50%;
+    left: 50%;
+    background: black;
+    transform: translate(-50%,-50%) rotate(45deg);
+}
 .edit{
     border-radius: 4px;
     background: orange;

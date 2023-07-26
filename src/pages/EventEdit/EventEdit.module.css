@@ -18,6 +18,12 @@
     background: blue;
 
 }
+.checkbox{
+	width: 16px;
+	height: 16px;
+	color:blue;
+	margin: 4px;
+}
 .controls{
     display: flex;
     align-items: center;
