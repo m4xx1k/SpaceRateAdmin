@@ -12,7 +12,7 @@ const AdditionalItem = ({name, value = '', handleChange}) => {
     }
 
     return (<div className={s["form_group"]}>
-        <label htmlFor="" style={{textTransform: 'capitalize'}}>{name}</label>
+        <label htmlFor="" style={{textTransform: 'capitalize'}}>{name?.replaceAll('_',' ')}</label>
         <input value={input} onChange={onChange} type="text" className={s.input}/>
     </div>);
 };

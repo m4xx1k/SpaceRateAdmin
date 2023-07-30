@@ -1,14 +1,14 @@
 import React from 'react';
 import s from './User.module.css'
-const User = ({data,dates}) => {
-    const date = new Date(data.date)
+import clsx from "clsx";
+const User = ({data}) => {
     return (
-        <div className={s.container}>
+        <div className={clsx(s.container, data.registeredSameDay && s.new_container)}>
             <img className={s.img} src={data.picture} alt=""/>
             <div>
-                <div style={{marginBottom:4}}>{data.name}</div>
+                <div style={{marginBottom:2}}>{data.name}</div>
                 <a className={s.username} href={`https://t.me/${data.username}`}>@{data.username}</a>
-                <div>{date.toISOString().split('T')[0]}</div>
+                {/*<div>{date.toISOString().split('T')[0]}</div>*/}
             </div>
             {
                 data.registeredSameDay &&

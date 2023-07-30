@@ -2,6 +2,20 @@ import {useState} from "react";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import {zonedTimeToUtc} from "date-fns-tz";
+export const months = [
+    'январь',   'февраль',
+    'март',     'апрель',
+    'май',      'июнь',
+    'июль',     'август',
+    'сентябрь', 'октябрь',
+    'ноябрь',   'декабрь'
+]
+export function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+
+    return date.toLocaleDateString('ru-RU', options);
+}
 
 export function convertToMs(dateStr, timeStr) {
     const dateTimeStr = `${dateStr}T${timeStr}`;
@@ -92,4 +106,35 @@ export function formatDates(dates) {
     })
     console.log(res)
     return res;
+}
+export function useAnalitics(data){
+    const uniqueUsers = new Set();
+    const usersData = data.reduce((acc, item) => {
+        const dateKey = item.date.split('T')[0];
+        acc[dateKey] = acc[dateKey] || { totalUsers: 0, newUsers: 0 };
+
+        acc[dateKey].totalUsers += 1;
+
+        // Якщо registeredSameDay дорівнює true і користувач ще не був зареєстрований раніше, він вважається новим користувачем
+        if (item.registeredSameDay && !uniqueUsers.has(item.username)) {
+            acc[dateKey].newUsers += 1;
+            uniqueUsers.add(item.username);
+        }
+
+        return acc;
+    }, {});
+    const usersArray = Object.keys(usersData)
+        .map(key => ({
+            date: key,
+            totalUsers: usersData[key].totalUsers,
+            newUsers: usersData[key].newUsers,
+        }))
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const userEntriesData = data.reduce((acc, item) => {
+        acc[item.username] = (acc[item.username] || 0) + 1;
+        return acc;
+    }, {});
+    const userEntriesArray = Object.keys(userEntriesData).map(key => ({ username: key, count: userEntriesData[key] }));
+    return{userEntriesArray,usersArray}
 }

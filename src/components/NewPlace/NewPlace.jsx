@@ -119,7 +119,7 @@ const NewPlace = () => {
             <div className={s.additional}>
                 <div className={'row-wrap'}>
                     {
-                        ['price', 'time', 'location', 'telephone', 'type', 'site'].map(elem => <AdditionalItem
+                        ['price', 'time', 'location', 'telephone', 'type', 'site','yandex_maps','google_maps'].map(elem => <AdditionalItem
                             name={elem} handleChange={setAdditionalData} key={elem}/>)
                     }
                     {/* '   <div className={s["form_group"]}>*/}
