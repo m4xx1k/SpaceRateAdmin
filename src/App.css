@@ -148,3 +148,6 @@ label{
 	display: flex;
 	flex-direction: column;
 }
+.rdrDefinedRangesWrapper{
+    display: none;
+}

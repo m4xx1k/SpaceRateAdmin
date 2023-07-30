@@ -19,9 +19,16 @@ export const authApiSlice = api.injectEndpoints({
                 method:"POST",
                 body
             })
+        }),
+        getUsersWithinDateRange: builder.mutation({
+            query: body => ({
+                url: `user/findUserByDateRange`,
+                method:"POST",
+                body
+            })
         })
 
     })
 })
 
-export const {useFindAllUsersQuery, useLoginAdminMutation, useFetchUserQuery} = authApiSlice
+export const {useGetUsersWithinDateRangeMutation,useFindAllUsersQuery, useLoginAdminMutation, useFetchUserQuery} = authApiSlice

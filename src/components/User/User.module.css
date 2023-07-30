@@ -1,15 +1,20 @@
 .container{
-    width: fit-content;
+    width: 100%;
     gap: 8px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
     flex-wrap: wrap;
     padding: 8px;
     background: #fff;
     border-radius: 12px;
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     margin: 8px;
+    position: relative;
+}
+.username{
+    font-size: 14px;
+    text-decoration: underline;
 }
 .info{
     display: flex;
@@ -21,6 +26,12 @@
     display: flex;
     align-items: center;
     gap: 4px;
+}
+.new{
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    font-size: 10px;
 }
 .delete, .save{
     width: 32px;

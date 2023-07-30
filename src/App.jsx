@@ -13,6 +13,7 @@ import CategoryAdvertisement from "./pages/CategoryAdvertisement/CategoryAdverti
 import EventTypes from './pages/EventTypes/EventTypes';
 import EventEdit from "./pages/EventEdit/EventEdit.jsx";
 import EventCreate from "./pages/EventCreate/EventCreate.jsx";
+import NewUsers from "./pages/NewUsers/NewUsers.jsx";
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
 
                     <Route element={<Category/>} path={'/category'}/>
                     <Route element={<Places/>} path={'/places'}/>
-                    <Route element={<Users/>} path={'/users'}/>
+                    <Route element={<Users/>} path={'/users0'}/>
+                    <Route element={<NewUsers/>} path={'/users'}/>
                     <Route element={<Ratings/>} path={'/ratings'}/>
                     <Route element={<Mailing/>} path={'/mailing'}/>
                     <Route element={<CategoryAdvertisement/>} path={'/categoryadvertisement'}/>
