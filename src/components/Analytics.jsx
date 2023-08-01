@@ -1,19 +1,31 @@
 import React from 'react';
-import {LineChart, XAxis, YAxis, Tooltip, Line, BarChart, Bar, PieChart, Pie} from 'recharts';
+import {XAxis, YAxis, Tooltip, BarChart, Bar} from 'recharts';
 import {useAnalitics} from "../utils.js";
-import s from '../pages/NewUsers/NewUsers.module.css'
+import s from '../pages/NewUsers/NewUsers.module.scss'
+
 const Analytics = ({data}) => {
-    const {usersArray} = useAnalitics(data)
+    const {usersArray, newCount, allCount} = useAnalitics(data)
     return (
-        <div style={{display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 32}}>
+        <div>
+            <div className={s.stat}>
+                <div className={s.statElem}>
+                    <span className={s.statNameActive}>НОВЬІX:</span>
+                    <span className={s.statValue}>{newCount}</span>
+                </div>
+                <div className={s.statElem}>
+                    <span className={s.statName}>ВСЕГО:</span>
+                    <span className={s.statValue}>{allCount}</span>
+                </div>
+
+            </div>
             <div className={s.barchart}>
                 {/*<h1>Active Users Over Time</h1>*/}
                 <BarChart width={600} height={312} data={usersArray}>
                     <XAxis dataKey="date"/>
                     <YAxis/>
                     <Tooltip/>
-                    <Bar  radius={2} dataKey="totalUsers" fill="#22262b" name="ВСЕГО"/>
-                    <Bar  radius={2} dataKey="newUsers" fill="rgb(61, 145, 255)" name="НОВЬІX"/>
+                    <Bar radius={2} dataKey="totalUsers" fill="#22262b" name="ВСЕГО"/>
+                    <Bar radius={2} dataKey="newUsers" fill="rgb(61, 145, 255)" name="НОВЬІX"/>
                 </BarChart>
             </div>
             {/*<div>*/}

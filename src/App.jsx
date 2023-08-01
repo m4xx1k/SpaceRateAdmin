@@ -14,6 +14,7 @@ import EventTypes from './pages/EventTypes/EventTypes';
 import EventEdit from "./pages/EventEdit/EventEdit.jsx";
 import EventCreate from "./pages/EventCreate/EventCreate.jsx";
 import NewUsers from "./pages/NewUsers/NewUsers.jsx";
+import Place from "./pages/Place/Place.jsx";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
                     <Route element={<CategoryAdvertisement/>} path={'/categoryadvertisement'}/>
                     <Route element={<Events/>} path={'/event'}/>
                     <Route element={<EventEdit/>} path={'/event/edit/:id'}/>
+                    <Route element={<Place/>} path={'/place/edit/:id'}/>
                     <Route element={<EventTypes/>} path={'/eventtypes'}/>
                     <Route element={<EventCreate/>} path={'/event/create'}/>
 					<Route element={<Category/>} path={'*'}/>

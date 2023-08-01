@@ -108,7 +108,11 @@ export function formatDates(dates) {
     return res;
 }
 export function useAnalitics(data){
-    const uniqueUsers = new Set();
+    const uniqueUsernames = new Set();
+    const uniqueUsers = []
+    data.forEach(user=>{
+        if(!uniqueUsers.includes(user.telegramId)) uniqueUsers.push(user)
+    })
     const usersData = data.reduce((acc, item) => {
         const dateKey = item.date.split('T')[0];
         acc[dateKey] = acc[dateKey] || { totalUsers: 0, newUsers: 0 };
@@ -116,9 +120,9 @@ export function useAnalitics(data){
         acc[dateKey].totalUsers += 1;
 
         // Якщо registeredSameDay дорівнює true і користувач ще не був зареєстрований раніше, він вважається новим користувачем
-        if (item.registeredSameDay && !uniqueUsers.has(item.username)) {
+        if (item.registeredSameDay && !uniqueUsernames.has(item.username)) {
             acc[dateKey].newUsers += 1;
-            uniqueUsers.add(item.username);
+            uniqueUsernames.add(item.username);
         }
 
         return acc;
@@ -136,5 +140,6 @@ export function useAnalitics(data){
         return acc;
     }, {});
     const userEntriesArray = Object.keys(userEntriesData).map(key => ({ username: key, count: userEntriesData[key] }));
-    return{userEntriesArray,usersArray}
+    console.log({uniqueUsernames:[...uniqueUsernames]})
+    return{userEntriesArray,usersArray, newCount:uniqueUsers.filter(user=>user.registeredSameDay).length,allCount:uniqueUsers.length}
 }

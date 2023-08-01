@@ -1,0 +1,191 @@
+.container{
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 8px;
+  border-radius: 12px;
+  margin: 8px;
+  gap: 16px;
+}
+.title{
+  font-size: 24px;
+  font-weight: 700;
+}
+.subtitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+.container.open{
+  flex-direction: column;
+  .photos{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .desc{
+    max-width: 100%;
+  }
+  .controls{
+    margin-top: 16px;
+    flex-direction: row
+  }
+  .additional{
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+}
+.imageInput {
+  display: none;
+}
+.deletePhoto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: red;
+  color: black;
+  font-weight: 700;
+  transform: rotate(45deg);
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+}
+.uploadButton{
+  width: 32px;
+  height: 32px;
+  background: transparent;
+}
+.photo{
+  width: 100%;
+  max-width: 128px;
+  height: auto;
+  object-fit: contain;
+}
+.icon{
+  width: 24px;
+  height: 24px;
+}
+.photo_container{
+  position: relative;
+
+}
+.photoI{
+  display: none;
+}
+.photo_container{
+  padding: 2px;
+  background: #f5f5f5;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  border-radius: 4px;
+}
+.photo_container:hover .photoI{
+  display: flex;
+  content: attr(data-index);
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background: white;
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+  border-radius: 2px;
+  border:1px solid black;
+}
+.photos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px;
+  margin-right: 8px;
+
+}
+.imageInput {
+  display: none;
+}
+
+
+.name{
+  font-weight: 700;
+}
+.desc{
+  font-size: 14px;
+  max-width: 95%;
+  height: 100%;
+  border:1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 4px;
+  flex:1 1 auto;
+}
+.additional{
+
+  display: none;
+
+
+}
+.expand{
+  width: 16px;
+  height: 16px;
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+  transform: rotate(45deg);
+  background: transparent;
+}
+.add_item{
+  display: flex;
+  flex-direction: column;
+}
+.add_name{
+  font-weight: 700;
+}
+.add_value{
+  font-size: 14px;
+  font-weight: 300;
+}
+.controls{
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+.save, .delete{
+  padding: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  border-radius: 4px;
+  color: #eee;
+  transition: all ease-in-out 400ms;
+}
+.save:hover, .delete:hover{
+  transform: scale(1.02);
+}
+.save{
+  background: blue;
+}
+.delete{
+  background: red;
+}
+.ratings{
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+}

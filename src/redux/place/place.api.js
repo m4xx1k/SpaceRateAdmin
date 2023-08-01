@@ -10,6 +10,10 @@ export const placeApi = api.injectEndpoints({
            query:()=>'place/findAll',
            providesTags:['Place']
         }),
+        findById:builder.query({
+           query:id=>`place/findById/${id}`,
+           providesTags:['Place']
+        }),
         fetchRatingsByPlaces:builder.query({
             query:body=>({
                 url:'place/ratingsByPlaces',
@@ -21,6 +25,14 @@ export const placeApi = api.injectEndpoints({
         fetchPlacesByCategories:builder.query({
             query:body=>({
                 url:'place/categories',
+                method:"POST",
+                body
+            }),
+            providesTags:['Place']
+        }),
+        findMainPlacesByCategories:builder.query({
+            query:body=>({
+                url:'place/findMainPlacesByCategories',
                 method:"POST",
                 body
             }),
@@ -100,5 +112,7 @@ export const {useDeleteRatingMutation,
     useUpdatePlacePhotoMutation,
     useUpdatePlaceInfoMutation,
     useUpdatePlaceMutation,
-    useRemovePlaceMutation
+    useRemovePlaceMutation,
+    useFindMainPlacesByCategoriesQuery,
+    useFindByIdQuery
 } = placeApi

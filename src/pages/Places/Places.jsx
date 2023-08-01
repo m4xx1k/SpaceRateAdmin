@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {
     useFetchAllFullPlacesQuery,
 
-    useFetchPlacesByCategoriesQuery
+    useFetchPlacesByCategoriesQuery, useFindMainPlacesByCategoriesQuery
 } from "../../redux/place/place.api.js";
 import NewPlace from "../../components/NewPlace/NewPlace.jsx";
 import PlaceItem from "../../components/PlaceItem/PlaceItem.jsx";
@@ -10,13 +10,15 @@ import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import s from './Places.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {selectAllCategories, toggleCategories} from "../../redux/place/place.slice.js";
+import PlaceMainItem from "../../components/PlaceMainItem/PlaceMainItem.jsx";
 
 const Places = () => {
     const {data: categories} = useFetchAllQuery()
     const dispatch = useDispatch()
     const {selectedCategories} = useSelector(state => state.place)
     const {data: places} = useFetchPlacesByCategoriesQuery({categories: selectedCategories})
-    useEffect(() => console.log(places), [places])
+    const {data:mainPlaces} = useFindMainPlacesByCategoriesQuery({categories: selectedCategories})
+    useEffect(() => console.log({places,mainPlaces}), [places])
     const handleSelectCategory = id => {
         if (id === 'all') {
             dispatch(selectAllCategories())
@@ -39,9 +41,14 @@ const Places = () => {
                     )) : <></>
                 }
             </ul>
+            {/*<ul>*/}
+            {/*    {*/}
+            {/*        places?.length ? places?.map(data => <PlaceItem key={data.place._id} data={data}/>) : <></>*/}
+            {/*    }*/}
+            {/*</ul>*/}
             <ul>
                 {
-                    places?.length ? places?.map(data => <PlaceItem key={data.place._id} data={data}/>) : <></>
+                    mainPlaces?.length ? mainPlaces?.map(data => <PlaceMainItem key={data?._id} place={data}/>) : <></>
                 }
             </ul>
         </div>

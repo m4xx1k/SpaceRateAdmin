@@ -1,0 +1,44 @@
+.item {
+    padding: 8px 16px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    border-radius: 4px;
+    margin: 8px 0;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.delete img,
+.edit img,
+.eye img{
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    max-width: 32px;
+}
+.eye{
+    position: relative;
+    transition:all 200ms ease-in-out;
+}
+.notVisible::before{
+    position: absolute;
+    content:"";
+    height: 100%;
+    width: 2px;
+    top: 50%;
+    left: 50%;
+    background: black;
+    transform: translate(-50%,-50%) rotate(45deg);
+}
+.edit{
+    border-radius: 4px;
+    background: orange;
+}

@@ -5,7 +5,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import {useGetUsersWithinDateRangeMutation} from "../../redux/auth/authApiSlice.js";
 import * as rdrLocales from 'react-date-range/dist/locale';
 import User from "../../components/User/User.jsx";
-import s from './NewUsers.module.css'
+import s from './NewUsers.module.scss'
 import Analytics from "../../components/Analytics.jsx";
 import {formatDate} from "../../utils.js";
 
@@ -24,7 +24,7 @@ function NewUsers() {
             const start = ranges.selection.startDate.toLocaleDateString('uz-UZ');
             const end = ranges.selection.endDate.toLocaleDateString('uz-UZ');
             const {data} = await getUsersWithinDateRange({start, end});
-
+            console.log({start,end,data})
             setAnalData(data)
             const groupedUsers = data.reduce((acc, user) => {
                 const date = new Date(user.date).toISOString().split('T')[0];
