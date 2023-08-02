@@ -9,7 +9,7 @@ import Login from "./pages/Login.jsx";
 import Ratings from "./pages/Ratings/Ratings.jsx";
 import Mailing from "./pages/Mailing/Mailing";
 import Events from "./pages/Events/Events";
-import CategoryAdvertisement from "./pages/CategoryAdvertisement/CategoryAdvertisement.jsx";
+import Advertisement from "./pages/Advertisements/CategoryAdvertisement";
 import EventTypes from './pages/EventTypes/EventTypes';
 import EventEdit from "./pages/EventEdit/EventEdit.jsx";
 import EventCreate from "./pages/EventCreate/EventCreate.jsx";
@@ -29,7 +29,7 @@ function App() {
                     <Route element={<NewUsers/>} path={'/users'}/>
                     <Route element={<Ratings/>} path={'/ratings'}/>
                     <Route element={<Mailing/>} path={'/mailing'}/>
-                    <Route element={<CategoryAdvertisement/>} path={'/categoryadvertisement'}/>
+                    <Route element={<Advertisement/>} path={'/advertisement'}/>
                     <Route element={<Events/>} path={'/event'}/>
                     <Route element={<EventEdit/>} path={'/event/edit/:id'}/>
                     <Route element={<Place/>} path={'/place/edit/:id'}/>

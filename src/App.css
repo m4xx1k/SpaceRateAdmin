@@ -84,6 +84,10 @@ a{
     display: flex;
     flex-direction: column;
 }
+.subtitle{
+    font-weight: 500;
+    font-size: 20px;
+}
 button{
     border:none;
     outline: none;

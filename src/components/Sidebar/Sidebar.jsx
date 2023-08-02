@@ -24,8 +24,8 @@ const routes = [
         name: 'Рассылка'
     },
     {
-        path: '/categoryadvertisement',
-        name: 'Баннеры категорий'
+        path: '/advertisement',
+        name: 'Баннеры'
     },
     {
         path: '/event/create',

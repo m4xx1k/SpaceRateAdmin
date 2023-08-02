@@ -1,25 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import s from './CategoryAdvertisementItem.module.css'
-import success from '../../assets/success.svg'
-import deleteIcon from '../../assets/delete.svg'
+import React, { useState} from 'react';
+import s from './CategoryAdvertisement/CategoryAdvertisementItem.module.css'
+import success from '../assets/success.svg'
+import deleteIcon from '../assets/delete.svg'
 import {
-    useFetchAllQuery,
-    useRemoveCategoryAdvertisementMutation,
-    useUpdateCategoryAdvertisementMutation,
-} from "../../redux/category/category.api.js";
-import {useInput} from "../../utils.js";
-import {loadingToast, successToast, errorToast} from "../../utils";
+   useRemoveAdvertisementMutation,useUpdateAdvertisementMutation
+} from "../redux/advertisement/advertisement.api";
+import {useInput} from "../utils.js";
+import {loadingToast, successToast, errorToast} from "../utils";
 
-const CategoryAdvertisementItem = ({data}) => {
+const AdvertisementItem = ({data}) => {
     const [photoUrl, setPhotoUrl] = useState(`${import.meta.env.VITE__API}/categories/${data.photo}`)
     const [photo, setPhoto] = useState(null)
     const [link, changeLink] = useInput(data.link)
-    const {data: categories,} = useFetchAllQuery()
 
-    const [categoryId, changeCategoryId] = useInput(data.categoryId)
 
-    const [update] = useUpdateCategoryAdvertisementMutation()
-    const [remove] = useRemoveCategoryAdvertisementMutation()
+    const [update] = useUpdateAdvertisementMutation()
+    const [remove] = useRemoveAdvertisementMutation()
     const handleChangeLink = e => {
         changeLink(e)
     }
@@ -36,14 +32,12 @@ const CategoryAdvertisementItem = ({data}) => {
                 const id = loadingToast('Сохранение...')
                 const formdata = new FormData()
                 formdata.append('link', link)
-                console.log(categoryId)
-                formdata.append('categoryId', categoryId)
                 formdata.append('photo', photo)
                 await update({id: data._id, body: formdata})
                 successToast(id)
             }
         } catch (e) {
-            errorToast(id)
+            if(id) errorToast(id)
             console.log(e)
         }
     }
@@ -60,7 +54,6 @@ const CategoryAdvertisementItem = ({data}) => {
     return (
         <div className={s.container}>
             <div className={s["info"]}>
-                {/*<img className={s.photo} src={`https://api.goodjoy.uz/categories/${data.photo}`} alt=""/>*/}
                 <label className={s["custom-file-upload"]}>
                     <input className={s.input} onChange={handleImageChange} type="file"
                            accept="photo/*"
@@ -79,13 +72,7 @@ const CategoryAdvertisementItem = ({data}) => {
 
                     <input value={link} onChange={handleChangeLink} className={s.name}/>
                 </div>
-                <div className={s["form_group"]}>
-                    <select value={categoryId} className={s.input} onChange={changeCategoryId}>
-                        {categories?.map(cat => (
-                            <option key={cat._id} value={cat._id}>{cat.name}</option>
-                        ))}
-                    </select>
-                </div>
+
                 <div className={s.controls}>
                     <button className={s.save} onClick={handleChange}>
                         <img src={success} alt=""/>
@@ -100,4 +87,4 @@ const CategoryAdvertisementItem = ({data}) => {
     );
 };
 
-export default CategoryAdvertisementItem;
+export default AdvertisementItem;
