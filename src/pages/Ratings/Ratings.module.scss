@@ -1,15 +1,21 @@
-.places{
+.places {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
   padding: 16px;
-  &__active{
+  height: 250px;
+  overflow-y: scroll;
+  &__container{
+    margin-top: 8px;
+  }
+  &__active {
     background: blue !important;
-    border:none;
+    border: none;
     color: #fff;
   }
-  &__item{
+
+  &__item {
     font-size: 14px;
     padding: 4px 8px;
     background: #fff;
@@ -20,8 +26,20 @@
 
 
 }
-.ratings{
-  display: flex;
-  flex-wrap: wrap;
+
+.rating {
+  &__date {
+    font-weight: 300;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 4px 8px;
+    border-radius: 2px;
+    color: white;
+    width: fit-content;
+    background: rgb(61, 145, 255);
+    margin: 4px;
+  }
+
 }
 

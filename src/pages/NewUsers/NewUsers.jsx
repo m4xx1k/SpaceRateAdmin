@@ -60,7 +60,7 @@ function NewUsers() {
             <div className={s.users_list}>
                 {Object.keys(users).length > 0 ? (
                     Object.entries(users)
-                        .sort(([dateA], [dateB]) => new Date(dateA) - new Date(dateB))
+                        .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA))
                         .map(([date, usersByDate]) => {
                             const sortedUsersByDate = usersByDate.sort((a, b) => b.registeredSameDay - a.registeredSameDay);
                             return <div className={s.date} key={date}>

@@ -4,6 +4,7 @@ import s from './RatingItem.module.scss'
 import {useFetchUserQuery} from "../../redux/auth/authApiSlice.js";
 import deleteIcon from './../../assets/trash.svg'
 import {useDeleteRatingMutation} from "../../redux/place/place.api.js";
+const VITE__API = import.meta.env.VITE__API
 const RatingItem = ({data}) => {
 
     const {data:user} = useFetchUserQuery({telegramId: data.telegramId})
@@ -29,6 +30,16 @@ const RatingItem = ({data}) => {
             }
 
             <p className={s.item__text}>{data.text}</p>
+            <div className={'rewievs__photos'}>
+                {data?.photos?.map((photo,i)=>(
+                    <picture  key={photo._id}>
+                        <img className={'rewievs__photo'}
+                             src={`${VITE__API}/places/${photo.photo}`}
+                             alt={`${VITE__API}/places/${photo.photo}`}/>
+                        {/*<img loading="lazy"  src="https://via.placeholder.com/374" alt=""/>*/}
+                    </picture>
+                ))}
+            </div>
             <div className={s.item__bottom}>
                 <span className={s.item__date}>{dayjs(data.date).format("DD.MM.YYYY HH:mm")}</span>
                 <button className={s.item__delete} onClick={handleDelete}>

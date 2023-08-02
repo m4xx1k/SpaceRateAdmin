@@ -6,6 +6,7 @@ import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import upload from '../../assets/upload.svg'
 import AdditionalItem from "./AdditionalItem.jsx";
 import {loadingToast, successToast, errorToast} from "../../utils";
+const VITE__API = import.meta.env.VITE__API
 
 const NewPlace = () => {
     const [name, handleNameChange, resetName] = useInput('');
@@ -45,7 +46,6 @@ const NewPlace = () => {
             })
             images.forEach((image) => {
                 formData.append(`photos`, image);
-
             });
 
             // send request
