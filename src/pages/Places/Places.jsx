@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
 import {
-    useFetchAllFullPlacesQuery,
-
-    useFetchPlacesByCategoriesQuery, useFindMainPlacesByCategoriesQuery
+     useFindMainPlacesByCategoriesQuery
 } from "../../redux/place/place.api.js";
 import NewPlace from "../../components/NewPlace/NewPlace.jsx";
-import PlaceItem from "../../components/PlaceItem/PlaceItem.jsx";
 import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import s from './Places.module.scss'
 import {useDispatch, useSelector} from "react-redux";
