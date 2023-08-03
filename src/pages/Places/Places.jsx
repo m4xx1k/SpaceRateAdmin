@@ -16,9 +16,12 @@ const Places = () => {
     const {data: categories} = useFetchAllQuery()
     const dispatch = useDispatch()
     const {selectedCategories} = useSelector(state => state.place)
-    const {data: places} = useFetchPlacesByCategoriesQuery({categories: selectedCategories})
-    const {data:mainPlaces} = useFindMainPlacesByCategoriesQuery({categories: selectedCategories})
-    useEffect(() => console.log({places,mainPlaces}), [places])
+    // const {data: places} = useFetchPlacesByCategoriesQuery({categories: selectedCategories})
+    const {data:mainPlaces,isSuccess,isFetching} = useFindMainPlacesByCategoriesQuery({categories: selectedCategories})
+    useEffect(() => {
+
+        console.log({isSuccess, mainPlaces,isFetching})
+    }, [mainPlaces,isFetching,isSuccess])
     const handleSelectCategory = id => {
         if (id === 'all') {
             dispatch(selectAllCategories())
@@ -48,7 +51,22 @@ const Places = () => {
             {/*</ul>*/}
             <ul>
                 {
-                    mainPlaces?.length ? mainPlaces?.map(data => <PlaceMainItem key={data?._id} place={data}/>) : <></>
+                    mainPlaces?.length ? mainPlaces?.map(data => <PlaceMainItem key={data?._id} place={data}/>) : (
+                        isFetching ? <>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        <div className={'skeleton-loading'} style={{width:'100%',height:50}}></div>
+                        </> :<></>
+                    )
                 }
             </ul>
         </div>
