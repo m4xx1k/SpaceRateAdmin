@@ -97,11 +97,38 @@ export const placeApi = api.injectEndpoints({
                 method:"DELETE"
             }),
             invalidatesTags:['Rating']
+        }),
+        createRatingAnswer:builder.mutation({
+            query:body=>({
+                url:`place/ratingAnswer/create`,
+                method:"POST",
+                body
+            }),
+            invalidatesTags:['Rating']
+        }),
+        updateRatingAnswer:builder.mutation({
+            query:body=>({
+                url:`place/ratingAnswer/update`,
+                method:"PUT",
+                body
+            }),
+            invalidatesTags:['Rating']
+        }),
+        deleteRatingAnswer:builder.mutation({
+            query:body=>({
+                url:`place/ratingAnswer/delete`,
+                method:"DELETE",
+                body
+            }),
+            invalidatesTags:['Rating']
         })
     })
 })
 
 export const {useDeleteRatingMutation,
+    useCreateRatingAnswerMutation,
+    useUpdateRatingAnswerMutation,
+    useDeleteRatingAnswerMutation,
     useFetchRatingsByPlacesQuery,
     useFetchAllPlacesQuery,
     useFetchPlacesByCategoriesQuery,
