@@ -43,6 +43,10 @@ const routes = [
         element:lazy(()=>import('./pages/Ratings/Ratings'))
     },
     {
+        path:'/event/ratings',
+        element:lazy(()=>import('./pages/EventRatings/EventRatings'))
+    },
+    {
         path:'/mailing',
         element:lazy(()=>import('./pages/Mailing/Mailing'))
     },

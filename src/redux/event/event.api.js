@@ -132,12 +132,51 @@ export const eventApi = api.injectEndpoints({
             })
 
         }),
-
+        findAllRatings:builder.query({
+            query:()=>'event/allRatings',
+            providesTags:['Rating']
+        }),
+        createEventRatingAnswer:builder.mutation({
+            query:body=>({
+                url:`event/ratingAnswer/create`,
+                method:"POST",
+                body
+            }),
+            invalidatesTags:['Rating']
+        }),
+        updateEventRatingAnswer:builder.mutation({
+            query:body=>({
+                url:`event/ratingAnswer/update`,
+                method:"PUT",
+                body
+            }),
+            invalidatesTags:['Rating']
+        }),
+        deleteEventRatingAnswer:builder.mutation({
+            query:body=>({
+                url:`event/ratingAnswer/delete`,
+                method:"DELETE",
+                body
+            }),
+            invalidatesTags:['Rating']
+        }),
+        deleteEventRating:builder.mutation({
+            query:body=>({
+                url:`event/deleteRating`,
+                method:"DELETE",
+            body}),
+            invalidatesTags:['Rating']
+        })
 
     })
 })
 
 export const {
+    useDeleteEventRatingMutation,
+    useDeleteEventRatingAnswerMutation,
+    useCreateEventRatingAnswerMutation,
+    useUpdateEventRatingAnswerMutation,
+    useFindAllRatingsQuery,
     useFindAllEventTypesQuery,
     useCreateEventTypeMutation,
     useUpdateEventTypeMutation,

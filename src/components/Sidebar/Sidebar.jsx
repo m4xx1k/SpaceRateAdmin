@@ -39,6 +39,10 @@ const routes = [
         path: '/eventtypes',
         name: 'Типы Событий'
     },
+    {
+        path: '/event/ratings',
+        name: 'Отзывы Событий'
+    },
 ]
 const Sidebar = () => {
     const {pathname} = useLocation()
