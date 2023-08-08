@@ -2,8 +2,8 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {logout} from "./auth/authSlice.js";
 
 const baseQuery = fetchBaseQuery({
-    // baseUrl:import.meta.env.VITE__API,
-    baseUrl:"http://localhost:5001",
+    baseUrl:import.meta.env.VITE__API,
+    // baseUrl:"http://localhost:5001",
     prepareHeaders: (headers) =>{
         const token = localStorage.getItem('token')
         if(!!token) headers.set('authorization', `Bearer ${token}`)
