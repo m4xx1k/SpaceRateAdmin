@@ -44,7 +44,9 @@ export const useInput = (initialValue) => {
 
 
 export const useAuth = () => {
-    return useSelector((state) => state.user)
+    const data = useSelector((state) => state.user)
+    console.log(data)
+    return data
 }
 export const loadingToast = (text='Загрузка', data = {}) => {
     return toast.loading(text, {

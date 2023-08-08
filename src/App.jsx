@@ -78,19 +78,6 @@ function App() {
             <Route element={<Layout/>}>
                 <Route element={<AuthRequire/>}>
 
-                    {/*<Route element={<Category/>} path={'/category'}/>*/}
-                    {/*<Route element={<Places/>} path={'/places'}/>*/}
-                    {/*<Route element={<Users/>} path={'/users0'}/>*/}
-                    {/*<Route element={<NewUsers/>} path={'/users'}/>*/}
-                    {/*<Route element={<Ratings/>} path={'/ratings'}/>*/}
-                    {/*<Route element={<Mailing/>} path={'/mailing'}/>*/}
-                    {/*<Route element={<Advertisement/>} path={'/advertisement'}/>*/}
-                    {/*<Route element={<Events/>} path={'/event'}/>*/}
-                    {/*<Route element={<EventEdit/>} path={'/event/edit/:id'}/>*/}
-                    {/*<Route element={<Place/>} path={'/place/edit/:id'}/>*/}
-                    {/*<Route element={<EventTypes/>} path={'/eventtypes'}/>*/}
-                    {/*<Route element={<EventCreate/>} path={'/event/create'}/>*/}
-					{/*<Route element={<Category/>} path={'*'}/>*/}
                     {
                         routes.map(el=>{
                             const Element = el.element

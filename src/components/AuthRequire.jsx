@@ -3,9 +3,9 @@ import {useAuth} from "../utils.js";
 import {Navigate, Outlet} from "react-router";
 
 const AuthRequire = () => {
-    const {user} = useAuth()
+    const {token} = useAuth()
     return (
-        !!user ? <Outlet/> : <Navigate to={'/login'} />
+        !!token ? <Outlet/> : <Navigate to={'/login'} />
     );
 };
 

@@ -13,16 +13,16 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         auth(state, action) {
-            const {user, token} = action.payload;
-            console.log(user, token)
-            state.user = user
-            localStorage.setItem('user', JSON.stringify(user))
+            const token = action.payload;
+            console.log( token)
+            state.user = {user:null,token}
             localStorage.setItem('token', token)
         },
         logout(state) {
             state.user = null;
             localStorage.removeItem('user')
             localStorage.removeItem('token')
+            window.location.replace('https://admin.goodjoy.uz/login')
         },
     },
 });
