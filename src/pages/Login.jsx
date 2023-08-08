@@ -19,9 +19,7 @@ const Login = () => {
             console.log(data?.token, data)
             if(data?.data?.token){
                 dispatch(auth(data.data.token))
-                navigate('/')
-
-
+                window.location.replace('https://admin.goodjoy.uz/')
             }
             if(data?.error){
                 setError(data.error?.data?.message)
