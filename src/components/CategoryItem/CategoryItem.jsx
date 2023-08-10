@@ -14,11 +14,16 @@ const CategoryItem = ({data}) => {
     const [isNewData, setIsNewData] = useState(false)
     const [image, setImage] = useState(null)
     const [name, changeName] = useInput(data.name)
+    const [nameUz, changeNameUz] = useInput(data.translation?.uz?.name || "")
     const [update] = useUpdateMutation()
     const [remove] = useRemoveMutation()
     const handleChangeName = e => {
         setIsNewData(true)
         changeName(e)
+    }
+    const handleChangeNameUz = e => {
+        setIsNewData(true)
+        changeNameUz(e)
     }
     const handleImageChange = (e) => {
         setIsNewData(true)
@@ -31,10 +36,11 @@ const CategoryItem = ({data}) => {
         let id
         try {
             if (isNewData && !!name) {
-                const id =  loadingToast('Сохранение...')
+                 id =  loadingToast('Сохранение...')
                 const formdata = new FormData()
                 formdata.append('name', name)
                 formdata.append('photo', image)
+                formdata.append('translation[uz][name]', nameUz)
                 await update({id: data._id, body: formdata})
                 successToast(id)
             }
@@ -45,8 +51,7 @@ const CategoryItem = ({data}) => {
     }
     const handleDelete = async () => {
         try {
-            const r = await remove({id: data._id})
-            console.log(r)
+            await remove({id: data._id})
 
         } catch (e) {
 
@@ -71,7 +76,19 @@ const CategoryItem = ({data}) => {
 
                 </label>
                 <div className={'column'}>
-                    <input value={name} onChange={handleChangeName} className={s.name}/>
+                    <div className={s.inputs}>
+                        <div className="column">
+                            <label htmlFor="" className="label">RU</label>
+                            <input value={name} onChange={handleChangeName} className={s.name}/>
+
+                        </div>
+                        <div className="column">
+                            <label htmlFor="" className="label">UZ</label>
+                            <input value={nameUz} onChange={handleChangeNameUz} className={s.name}/>
+
+                        </div>
+
+                    </div>
                     <Link onClick={handleSelectCategory} className={s.category} to={'/places'}>Посмотреть места</Link>
                 </div>
             </div>

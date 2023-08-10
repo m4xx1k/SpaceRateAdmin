@@ -62,10 +62,10 @@ export const eventApi = api.injectEndpoints({
         ,
 
         deleteEvent: builder.mutation({
-            query: body => ({
+            query: id => ({
                 url: `event/deleteEvent`,
                 method: 'DELETE',
-                body
+                body:{id}
             }),
             invalidatesTags: ['Event']
 

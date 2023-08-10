@@ -1,6 +1,6 @@
 import s from './EventCreate.module.css'
 import {useCreateFullEventMutation, useFindAllEventTypesQuery} from "../../redux/event/event.api.js";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     errorToast, formatDates, infosHasDuplicates, isValidDates, loadingToast, successToast, useInput
 } from "../../utils.js";
@@ -12,7 +12,9 @@ const EventCreate = () => {
     const {data: types, isSuccess} = useFindAllEventTypesQuery()
 
     const [name, handleNameChange, resetName] = useInput('');
+    const [nameUz, handleNameChangeUz, resetNameUz] = useInput('');
     const [description, handleDescriptionChange, resetDescription] = useInput('');
+    const [descriptionUz, handleDescriptionChangeUz, resetDescriptionUz] = useInput('');
     const [typeId, changeTypeId, resetTypeId, setTypeId] = useInput('')
     const [selectedDates, setSelectedDates] = useState([]);
     const [datesError, setDatesError] = useState('')
@@ -68,9 +70,11 @@ const EventCreate = () => {
                 times: [...new Set(date.times)]
             })))
             formData.append('name', name);
-            formData.append('type', typeId);
+            formData.append('translation[uz][name]', nameUz)
             formData.append('description', description);
+            formData.append('translation[uz][description]', descriptionUz)
             formData.append('dates',dates)
+            formData.append('type', typeId);
             formData.append('infos', JSON.stringify({infos}))
             images.forEach((image) => {
                 formData.append(`photos`, image);
@@ -79,7 +83,7 @@ const EventCreate = () => {
 
             // send request
             const res = await create(formData);
-            console.log(res)
+            console.log({res})
             resetName()
             resetDescription()
             successToast(id)
@@ -100,20 +104,29 @@ const EventCreate = () => {
         <h2 className="title">Создать Событие</h2>
         <div className={s.main}>
             <div className={s.top}>
-                <div className={s["form_group"]}>
-                    <label htmlFor="">Название</label>
-                    <input value={name} onChange={handleNameChange} type="text" className={s.input}/>
+                <div className="column">
+                    <label htmlFor="" className="label">RU Название</label>
+                    <input value={name} onChange={handleNameChange} className={s["name"]}/>
                 </div>
+                <div className="column">
+                    <label htmlFor="" className="label">UZ Название</label>
+                    <input value={nameUz} onChange={handleNameChangeUz} className={s["name"]}/>
+                </div>
+
                 <div className={s["form_group"]}>
                     <label htmlFor="">Тип</label>
                     <select value={typeId} className={s.input} onChange={changeTypeId}>
-                        {types?.map(cat => (<option key={cat._id} value={cat._id}>{cat.name ==='movie' ? 'кино':cat.name}</option>))}
+                        {types?.map(cat => (<option key={cat._id} value={cat._id}>{cat.name}</option>))}
                     </select>
                 </div>
             </div>
             <div className={`${s["form_group-desc"]}`}>
-                <label htmlFor="">Описание</label>
+                <label htmlFor="">RU Описание</label>
                 <textarea rows={6} value={description} onChange={handleDescriptionChange} className={s.textarea}/>
+            </div>
+            <div className={`${s["form_group-desc"]}`}>
+                <label htmlFor="">UZ Описание</label>
+                <textarea rows={6} value={descriptionUz} onChange={handleDescriptionChangeUz} className={s.textarea}/>
             </div>
         </div>
         <span className={'error'}>{error}</span>

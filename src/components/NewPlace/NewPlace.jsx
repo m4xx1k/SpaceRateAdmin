@@ -6,11 +6,14 @@ import {useFetchAllQuery} from "../../redux/category/category.api.js";
 import upload from '../../assets/upload.svg'
 import AdditionalItem from "./AdditionalItem.jsx";
 import {loadingToast, successToast, errorToast} from "../../utils";
+
 const VITE__API = import.meta.env.VITE__API
 
 const NewPlace = () => {
     const [name, handleNameChange, resetName] = useInput('');
+    const [nameUz, handleNameChangeUz, resetNameUz] = useInput('');
     const [description, handleDescriptionChange, resetDescription] = useInput('');
+    const [descriptionUz, handleDescriptionChangeUz, resetDescriptionUz] = useInput('');
     const [categoryId, changeCategoryId, resetCategoryId, setCategoryId] = useInput('')
     const [images, setImages] = useState([]);
     const [additionalData, setAdditionalData] = useState({})
@@ -37,12 +40,12 @@ const NewPlace = () => {
             id = loadingToast('Создание...')
             const formData = new FormData()
             formData.append('name', name);
-            formData.append('categoryId', categoryId);
+            formData.append('translation[uz][name]', nameUz)
             formData.append('description', description);
-            console.log({name, description, categoryId, img: images.length, additionalData})
+            formData.append('translation[uz][description]', descriptionUz)
+            formData.append('categoryId', categoryId);
             Object.keys(additionalData).forEach(elem => {
-                console.log(elem, additionalData[elem])
-                formData.append(elem, additionalData[elem])
+                formData.append(elem, JSON.stringify(additionalData[elem]))
             })
             images.forEach((image) => {
                 formData.append(`photos`, image);
@@ -95,10 +98,14 @@ const NewPlace = () => {
                 </div>
                 <div className={s.text_info}>
                     <div className={s.main}>
-                        <div className={s.left}>
+                        <div className={s.main_top}>
                             <div className={s["form_group"]}>
-                                <label htmlFor="">Название</label>
+                                <label htmlFor="">RU Название</label>
                                 <input value={name} onChange={handleNameChange} type="text" className={s.input}/>
+                            </div>
+                            <div className={s["form_group"]}>
+                                <label htmlFor="">UZ Название</label>
+                                <input value={nameUz} onChange={handleNameChangeUz} type="text" className={s.input}/>
                             </div>
                             <div className={s["form_group"]}>
                                 <label htmlFor="">Категория</label>
@@ -110,8 +117,13 @@ const NewPlace = () => {
                             </div>
                         </div>
                         <div className={`${s["form_group-desc"]}`}>
-                            <label htmlFor="">Описание</label>
+                            <label htmlFor="">RU Описание</label>
                             <textarea value={description} onChange={handleDescriptionChange} className={s.textarea}/>
+                        </div>
+                        <div className={`${s["form_group-desc"]}`}>
+                            <label htmlFor="">UZ Описание</label>
+                            <textarea value={descriptionUz} onChange={handleDescriptionChangeUz}
+                                      className={s.textarea}/>
                         </div>
                     </div>
                 </div>
@@ -119,8 +131,9 @@ const NewPlace = () => {
             <div className={s.additional}>
                 <div className={'row-wrap'}>
                     {
-                        ['price', 'time', 'location', 'telephone', 'type', 'site','yandex_maps','google_maps'].map(elem => <AdditionalItem
-                            name={elem} handleChange={setAdditionalData} key={elem}/>)
+                        ['price', 'time', 'location', 'telephone', 'type', 'site', 'yandex_maps', 'google_maps'].map(elem =>
+                            <AdditionalItem
+                                name={elem} handleChange={setAdditionalData} key={elem}/>)
                     }
                     {/* '   <div className={s["form_group"]}>*/}
                     {/*        <label htmlFor="">Цена</label>*/}

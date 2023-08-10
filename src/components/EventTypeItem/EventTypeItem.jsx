@@ -11,6 +11,7 @@ import {
 const CategoryItem = ({data}) => {
 
     const [name, changeName] = useInput(data.name)
+    const [nameUz, changeNameUz] = useInput(data.translation.uz.name)
     const [update] = useUpdateEventTypeMutation()
     const [remove] = useDeleteEventTypeMutation()
 	const [isNewData, setIsNewData] = useState(false)
@@ -19,13 +20,17 @@ const CategoryItem = ({data}) => {
         setIsNewData(true)
         changeName(e)
     }
+    const handleChangeNameUz = e => {
+        setIsNewData(true)
+        changeNameUz(e)
+    }
 
     const handleChange = async () => {
         let id
         try {
-            if (isNewData && !!name) {
-                const id =  loadingToast('Сохранение...')
-                await update({id: data._id, name})
+            if (isNewData && !!name && !!nameUz) {
+                id =  loadingToast('Сохранение...')
+                await update({id: data._id, name,nameUz})
                 successToast(id)
             }
         } catch (e) {
@@ -35,8 +40,11 @@ const CategoryItem = ({data}) => {
     }
     const handleDelete = async () => {
         try {
-            const r = await remove({id: data._id})
-            console.log(r)
+            if(!data.isMovie){
+                const r = await remove({id: data._id})
+                console.log(r)
+
+            }
 
         } catch (e) {
 
@@ -45,16 +53,27 @@ const CategoryItem = ({data}) => {
     }
    return (
        <div key={data.name} className={s.type}>
-			<div className={s.name}>
-				<input value={name} onChange={handleChangeName} className={s.name}/>
-			</div>
+           <div className="row" style={{gap:16}}>
+               <div className={s.name}>
+                   <input value={name} onChange={handleChangeName} className={s.name}/>
+               </div>
+               <div className={s.name}>
+                   <input value={nameUz} onChange={handleChangeNameUz} className={s.name}/>
+               </div>
+           </div>
+
 			<div className={s.controls}>
 				<button className={s.save} onClick={handleChange}>
 					<img src={success} alt=""/>
 				</button>
-				<button className={s.delete} onClick={handleDelete}>
-					<img src={deleteIcon} alt=""/>
-				</button>
+                {
+                    !data.isMovie ?
+                        <button className={s.delete} onClick={handleDelete}>
+                            <img src={deleteIcon} alt=""/>
+                        </button>
+                        :<></>
+                }
+
 			</div>
 		</div>
     );

@@ -17,7 +17,6 @@ import {
     successToast
 } from "../../utils.js";
 import Infos from "../EventCreate/Infos.jsx";
-import {format, parseISO} from 'date-fns';
 
 import DatePicker from "../../components/DatePicker/DatePicker.jsx";
 import {
@@ -32,9 +31,10 @@ const EventEdit = () => {
     const {id} = useParams()
     const {data, isError, isSuccess, isLoading} = useGetEventFullInfoByIdQuery(id)
 
-
     const [name, setName] = useState('')
+    const [nameUz, setNameUz] = useState('')
     const [description, setDescription] = useState('')
+    const [descriptionUz, setDescriptionUz] = useState('')
     const [typeId, setTypeId] = useState('')
     const {data: types} = useFindAllEventTypesQuery()
     const [infos, setInfos] = useState([])
@@ -63,8 +63,16 @@ const EventEdit = () => {
             setPhotos(initialPhotos)
             setName(data.event.name)
             setDescription(data.event.description)
+            setNameUz(data.event.translation.uz.name)
+            setDescriptionUz(data.event.translation.uz.description)
             setTypeId(data.event.type._id)
-            setInfos(data.event.info)
+            const modifiedInfos = data.event.info.map(info=>({
+                name:info.name,
+                value:info.value,
+                nameUz:info.translation.uz.name,
+                valueUz:info.translation.uz.value
+            }))
+            setInfos(modifiedInfos)
             setIsVisible(data.event.isVisible)
             setIsPremiere(data.event.isPremiere)
             const formatedDates = data.datesList.map(dateObj => {
@@ -149,13 +157,14 @@ const EventEdit = () => {
 
     }
     const handleDelete = async () => {
+        console.log(id)
         await removeEvent(id)
     }
     const handleSaveAll = async () => {
         let toastId
         const isDatesError = isValidDates(formatDates(selectedDates))
         const isInfosError = infosHasDuplicates(infos)
-        if (isDatesError && data.event.type.name!=='movie') {
+        if (isDatesError && !data.event.type.isMovie) {
             setDatesError('Ошибка, не может быть одинаковых дат')
         } else {
             setDatesError('')
@@ -171,7 +180,7 @@ const EventEdit = () => {
             setError('')
         }
         // if(isDatesError )
-        if ((isDatesError && data.event.type.name!=='movie') || isInfosError || !name || !description) {
+        if ((isDatesError && !data.event.type.isMovie) || isInfosError || !name || !description) {
             return
         }
         try {
@@ -179,11 +188,11 @@ const EventEdit = () => {
             toastId = loadingToast('Сохранение...')
 
             const id = data.event._id
-
-            await updateEvent({id, body: {description, name, type: typeId,isPremiere,isVisible}})
+            const translation = {uz:{name:nameUz,description:descriptionUz}}
+            await updateEvent({id, body: {description, name, type: typeId,isPremiere,isVisible,translation}})
 
             await updateInfo({id, infos})
-            if(data.event.type.name!=='movie'){
+            if(!data.event.type.isMovie){
                 const dates = formatDates(selectedDates).map(date => ({
                     ...date,
                     times: [...new Set(date.times)]
@@ -217,7 +226,7 @@ const EventEdit = () => {
                     </label>
 
                 </div>
-                { data.event.type.name!=='movie' && <div className="row">
+                { !data.event.type.isMovie && <div className="row">
                     <input type="checkbox" className={s.checkbox} checked={isPremiere}
                            onChange={() => setIsPremiere(prev => !prev)}/>
                     <label htmlFor={''}>
@@ -229,14 +238,19 @@ const EventEdit = () => {
                 <div className={s.main}>
                     <div className={s.top}>
                         <div className={s["form_group"]}>
-                            <label htmlFor="">Название</label>
+                            <label htmlFor="">RU Название</label>
                             <input value={name} onChange={e => setName(e.target.value)} type="text"
+                                   className={s.input}/>
+                        </div>
+                        <div className={s["form_group"]}>
+                            <label htmlFor="">UZ Название</label>
+                            <input value={nameUz} onChange={e => setNameUz(e.target.value)} type="text"
                                    className={s.input}/>
                         </div>
                         <div className={s["form_group"]}>
                             <label htmlFor="">Тип</label>
                             {
-                                data.event.type.name !=='movie' ?
+                                !data.event.type.isMovie ?
                                     <select value={typeId} className={s.input} onChange={e => setTypeId(e.target.value)}>
                                         {types?.map(cat => (
                                             <option key={cat._id} value={cat._id}>{cat.name}</option>
@@ -248,10 +262,18 @@ const EventEdit = () => {
 
                         </div>
                     </div>
-                    <div className={`${s["form_group-desc"]}`}>
-                        <label htmlFor="">Описание</label>
-                        <textarea rows={6} value={description} onChange={e => setDescription(e.target.value)}
-                                  className={s.textarea}/>
+                    <div className="column" style={{marginTop:16}}>
+                        <label htmlFor="" className="label">RU Описание</label>
+
+                        <textarea value={description} rows={8} onChange={e => setDescription(e.target.value)}
+                                  className={s["textarea"]}/>
+
+                    </div>
+                    <div className="column" style={{marginTop:16}}>
+                        <label htmlFor="" className="label">UZ Описание</label>
+                        <textarea value={descriptionUz} rows={8} onChange={e => setDescriptionUz(e.target.value)}
+                                  className={s["textarea"]}/>
+
                     </div>
                 </div>
                 <span className={'error'}>{error}</span>
@@ -285,7 +307,7 @@ const EventEdit = () => {
                 </div>
 
                 {
-                    data.event.type.name !== 'movie' &&
+                    !data.event.type.isMovie &&
                     <DatePicker error={datesError} selectedDates={selectedDates} setSelectedDates={setSelectedDates}/>
                 }
                 <Infos error={infosError}  infos={infos} setInfos={setInfos}/>

@@ -10,6 +10,7 @@ const NewCategory = () => {
     const [image, setImage] = useState(null)
     const [imageUrl, setImageUrl] = useState(null)
     const [name, onChangeName,resetName] = useInput('')
+    const [nameUz, onChangeNameUz,resetNameUz] = useInput('')
     const [createCategory] = useCreateMutation()
     const handleImageChange = (e) => {
         if (e.target.files[0]) {
@@ -26,6 +27,7 @@ const NewCategory = () => {
                 let formdata = new FormData()
                 formdata.append('photo', image)
                 formdata.append('name', name)
+                formdata.append('translation[uz][name]', nameUz)
                 await createCategory(formdata)
                 resetName()
                 setImage(null)
@@ -55,8 +57,8 @@ const NewCategory = () => {
 
                     </label>
                 </div>
-                <input value={name} onChange={onChangeName} placeholder={'Name...'} className={s.input}
-                       type="text"/>
+                <input value={name} onChange={onChangeName} placeholder={'RU Название...'} className={s.input} type="text"/>
+                <input value={nameUz} onChange={onChangeNameUz} placeholder={'UZ Название...'} className={s.input} type="text"/>
                 <button onClick={handleCreateCategory} className={s.btn}>                    <img src={success} alt=""/>
                 </button>
             </div>

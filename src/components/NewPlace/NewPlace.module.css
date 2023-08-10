@@ -33,6 +33,7 @@
 
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     padding: 1em 0;
 }
@@ -93,29 +94,35 @@
     background: #d32f2f; /* Material Design error dark color */
 }
 .photos{
-    width: 40%;
+    width: 100%;
     padding: 4px;
     border:1px solid #ddd;
 
 }
 .text_info{
-    width: 50%;
+    width: 100%;
 
 }
 .main{
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     gap: 16px;
 }
-.input{
+.input,.info_input{
     max-width: 150px;
 }
-.left{
+.info_input{
+    font-size: 12px;
+}
+.main_top{
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 .form_group{
     display: flex;

@@ -26,7 +26,9 @@ const Place = () => {
 
 
     const [name, setName] = useState('')
+    const [nameUz, setNameUz] = useState('')
     const [description, setDescription] = useState('')
+    const [descriptionUz, setDescriptionUz] = useState('')
     const [categoryId, setCategoryId] = useState('')
     const {data: categories} = useFetchAllQuery()
     const [additionalData, setAdditionalData] = useState({})
@@ -51,9 +53,12 @@ const Place = () => {
                     isNew: false
                 }
             })
+            console.log(data.info)
             setPhotos(initialPhotos)
             setName(data.place.name)
             setDescription(data.place.description)
+            setNameUz(data.place.translation.uz.name)
+            setDescriptionUz(data.place.translation.uz.description)
             setCategoryId(data.place.categoryId)
 
         }
@@ -124,15 +129,15 @@ const Place = () => {
                 toastId = loadingToast('Сохранение...')
                 const id = data.place._id
                 const info = Object.keys(data.info).map(e => {
-
                     const elem = data.info[e]
                     return {
                         _id: elem._id, name: elem.name, value: additionalData[elem.name]
                     }
                 })
-                await updatePlace({id, body: {description, name, categoryId}})
+                const translation = {uz:{name:nameUz, description:descriptionUz}}
+                await updatePlace({id, body: {description, name, categoryId,translation}})
 
-                await updateInfo({id, body: {data: info}})
+                 await updateInfo({id, body: {data: info}})
 
                 await handleChangePhoto()
                 successToast(toastId)
@@ -158,7 +163,15 @@ const Place = () => {
             </h4>
             <div className={s["info"]}>
                 <div className="row-wrap">
-                    <input value={name} onChange={e => setName(e.target.value)} className={s["name"]}/>
+                    <div className="column">
+                        <label htmlFor="" className="label">RU Название</label>
+                        <input value={name} onChange={e => setName(e.target.value)} className={s["name"]}/>
+                    </div>
+                    <div className="column">
+                        <label htmlFor="" className="label">UZ Название</label>
+                                        <input value={nameUz} onChange={e => setNameUz(e.target.value)} className={s["name"]}/>
+                    </div>
+
                     <select value={categoryId} onChange={e => setCategoryId(e.target.value)}
                             name="" id="">
                         {
@@ -170,9 +183,21 @@ const Place = () => {
                     <Link onClick={handleSelectPlace} className={s.ratings} to={'/ratings'}>Отзывы</Link>
 
                 </div>
+                <div className="column" style={{marginTop:16}}>
+                    <label htmlFor="" className="label">RU Описание</label>
 
-                <textarea value={description} rows={8} onChange={e => setDescription(e.target.value)}
-                          className={s["desc"]}/>
+                    <textarea value={description} rows={8} onChange={e => setDescription(e.target.value)}
+                              className={s["desc"]}/>
+
+                </div>
+                <div className="column">
+                    <label htmlFor="" className="label">UZ Описание</label>
+                    <textarea value={descriptionUz} rows={8} onChange={e => setDescriptionUz(e.target.value)}
+                                   className={s["desc"]}/>
+
+                </div>
+
+
 
             </div>
             <div>
@@ -210,8 +235,8 @@ const Place = () => {
                 <ul className={s["additional"]}>
                     {
                         Object.keys(data.info).map(name => {
-                            const value = data.info[name].value
-                            // console.log(name, data.info[name])
+                            const elem = data.info[name]
+                            const value = {ru:elem.value,uz:elem.translation.uz.value}
                             return <AdditionalItem value={value} name={name} key={name}
                                                    handleChange={setAdditionalData}/>
 
